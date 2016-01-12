@@ -75,6 +75,9 @@ namespace OfficeHoursServer
                 };
             });
 
+            app.UseIISPlatformHandler();
+            app.UseStaticFiles();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -82,6 +85,9 @@ namespace OfficeHoursServer
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" });
             });
+
+
+            SampleData.Initialize(app.ApplicationServices);
         }
 
         // Entry point for the application.

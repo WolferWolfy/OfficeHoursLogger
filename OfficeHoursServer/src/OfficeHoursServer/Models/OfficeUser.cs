@@ -12,8 +12,6 @@ namespace OfficeHoursServer.Models
 
         public string Email { get; set; }
 
-        public List<MonthLog> MonthLogs { get; set; }
-
         public OfficeUser(string email)
         {
             Email = email;

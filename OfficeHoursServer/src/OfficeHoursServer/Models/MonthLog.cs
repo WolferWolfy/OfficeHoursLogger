@@ -12,7 +12,6 @@ namespace OfficeHoursServer.Models
         public int UserId { get; set; }
         public OfficeUser User { get; set; }
 
-        public List<DayLog> DayEntries { get; set; }
         public TimeSpan AverageIn { get; set; }
         public TimeSpan AverageOut { get; set; }
     }

@@ -15,13 +15,15 @@ namespace OfficeHoursServer.Models
         {
             var context = serviceProvider.GetService<OfficeHoursContext>();
 
-            if (serviceProvider.GetService<IRelationalDatabaseCreator>().Exists())
+         //  if(serviceProvider.GetService<IRelationalDatabaseCreator>().Exists())
+
+            if (context.Database.EnsureCreated())
             {
                 if (!context.LogEntries.Any())
                 {
                     var office1User = context.Users.Add(new OfficeUser("office1@o.o")).Entity;
 
-                    var office2User = context.Users.Add(new OfficeUser("office@o.o")).Entity;
+                    var office2User = context.Users.Add(new OfficeUser("office2@o.o")).Entity;
 
                     var month1U1 = context.MonthLogs.Add(new MonthLog()
                     {

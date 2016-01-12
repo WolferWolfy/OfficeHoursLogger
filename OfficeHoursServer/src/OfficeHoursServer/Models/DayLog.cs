@@ -21,6 +21,5 @@ namespace OfficeHoursServer.Models
         public TimeSpan InOffice { get; set; }
         public TimeSpan OutOfOffice { get; set; }
 
-        public List<LogEntry> Entries { get; set; }
     }
 }

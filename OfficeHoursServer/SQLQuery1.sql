@@ -1,0 +1,3 @@
+﻿DROP TABLE DayLog;
+DROP TABLE MonthLog;
+DROP TABLE OfficeUser
