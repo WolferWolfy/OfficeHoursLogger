@@ -12,6 +12,8 @@ using OfficeHoursServer.Settings;
 using Microsoft.Extensions.OptionsModel;
 using Microsoft.AspNet.Authentication.JwtBearer;
 using System.Security.Claims;
+using OfficeHoursServer.Models;
+using Microsoft.Data.Entity;
 
 namespace OfficeHoursServer
 {
@@ -31,7 +33,15 @@ namespace OfficeHoursServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<Auth0Settings>(Configuration.GetSection("Auth0"));
+
             services.AddMvc();
+
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<OfficeHoursContext>(options =>
+                {
+                    options.UseSqlServer(Configuration["Data:ConnectionString"]);
+                });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerfactory)
