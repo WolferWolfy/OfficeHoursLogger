@@ -15,65 +15,51 @@ namespace OfficeHoursServer.Models
         {
             var context = serviceProvider.GetService<OfficeHoursContext>();
 
-         //  if(serviceProvider.GetService<IRelationalDatabaseCreator>().Exists())
+            //  if(serviceProvider.GetService<IRelationalDatabaseCreator>().Exists())
 
-            if (context.Database.EnsureCreated())
-            {
+
+
+            context.Database.EnsureDeleted();
+
+            context.Database.EnsureCreated();
+            
+
+
                 if (!context.LogEntries.Any())
                 {
-                    var office1User = context.Users.Add(new OfficeUser("office1@o.o")).Entity;
+                var office1User = new OfficeUser("office1@o.o");
+                    context.Users.Add(office1User);
 
-                    var office2User = context.Users.Add(new OfficeUser("office2@o.o")).Entity;
-
-                    var month1U1 = context.MonthLogs.Add(new MonthLog()
-                    {
-                        User = office1User
-                    }).Entity;
-
-                    var month1U2 = context.MonthLogs.Add(new MonthLog()
-                    {
-                        User = office2User
-                    }).Entity;
-
-                    var day4M1U1 = context.DayLogs.Add(new DayLog()
-                    {
-                        MonthLog = month1U1,
-                        Day = new DateTime(2016, 1, 4)
-                    }).Entity;
+                var office2User = new OfficeUser("office2@o.o");
+                    context.Users.Add(office2User);
 
 
-                    var day5M1U1 = context.DayLogs.Add(new DayLog()
-                    {
-                        MonthLog = month1U1,
-                        Day = new DateTime(2016, 1, 5)
-                    }).Entity;
-
-                    context.LogEntries.AddRange(
+                context.LogEntries.AddRange(
                         new LogEntry()
                         {
-                            DayLog = day4M1U1,
-                            Time = new TimeSpan(8, 20, 0),
+                            User = office1User,
+                            Time = new DateTime(2016, 1, 4, 8, 20, 0),
                             Direction = ActionDirection.Entry,
                             Name = "Arrive"
                         },
                        new LogEntry()
                        {
-                           DayLog = day4M1U1,
-                           Time = new TimeSpan(12, 00, 0),
+                           User = office1User,
+                           Time = new DateTime(2016, 1, 4, 12, 00, 0),
                            Direction = ActionDirection.Exit,
                            Name = "Break start"
                        },
                        new LogEntry()
                        {
-                           DayLog = day4M1U1,
-                           Time = new TimeSpan(13, 55, 0),
+                           User = office1User,
+                           Time = new DateTime(2016, 1, 4, 13, 55, 0),
                            Direction = ActionDirection.Entry,
                            Name = "Break end"
                        },
                        new LogEntry()
                        {
-                           DayLog = day4M1U1,
-                           Time = new TimeSpan(18, 10, 0),
+                           User = office1User,
+                           Time = new DateTime(2016, 1, 4, 18, 10, 0),
                            Direction = ActionDirection.Exit,
                            Name = "Depart"
                        }
@@ -83,29 +69,29 @@ namespace OfficeHoursServer.Models
                     context.LogEntries.AddRange(
                        new LogEntry()
                        {
-                           DayLog = day5M1U1,
-                           Time = new TimeSpan(9, 10, 0),
+                           User = office1User,
+                           Time = new DateTime(2016, 1, 5, 9, 10, 0),
                            Direction = ActionDirection.Entry,
                            Name = "Arrive"
                        },
                       new LogEntry()
                       {
-                          DayLog = day5M1U1,
-                          Time = new TimeSpan(11, 30, 0),
+                          User = office1User,
+                          Time = new DateTime(2016, 1, 5, 11, 30, 0),
                           Direction = ActionDirection.Exit,
                           Name = "Break start"
                       },
                       new LogEntry()
                       {
-                          DayLog = day5M1U1,
-                          Time = new TimeSpan(11, 55, 0),
+                          User = office1User,
+                          Time = new DateTime(2016, 1, 5, 11, 55, 0),
                           Direction = ActionDirection.Entry,
                           Name = "Break end"
                       },
                       new LogEntry()
                       {
-                          DayLog = day5M1U1,
-                          Time = new TimeSpan(17, 50, 0),
+                          User = office1User,
+                          Time = new DateTime(2016, 1, 5, 17, 50, 0),
                           Direction = ActionDirection.Exit,
                           Name = "Depart"
                       }
@@ -114,6 +100,5 @@ namespace OfficeHoursServer.Models
                     context.SaveChanges();
                 }
             }
-        }
     }
 }

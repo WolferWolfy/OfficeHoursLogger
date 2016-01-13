@@ -6,6 +6,7 @@ using Microsoft.AspNet.Mvc;
 using OfficeHoursServer.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Data.Entity;
+using OfficeHoursServer.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,7 +25,7 @@ namespace OfficeHoursServer.Controllers
         [Route("api/logentry/ping")]
         public object Ping()
         {
-            var entryList = OfficeHoursContext.LogEntries.Include(le => le.DayLog).ToList();
+            var entryList = OfficeHoursContext.LogEntries.ToList();
             return new
             {
                 message = "Pong. You accessed an unprotected endpoint.",
@@ -35,21 +36,31 @@ namespace OfficeHoursServer.Controllers
         [Route("api/logentry/entries")]
         public List<LogEntry> Entries()
         {
-            var entryList = OfficeHoursContext.LogEntries.Include(le => le.DayLog).ToList();
-
-            var b = new List<LogEntry>();
-            b.Add(new LogEntry()
-            {
-                Name = "A"
-            });
-
-            b.Add(new LogEntry()
-            {
-                Name = "B"
-            });
-
+            var entryList = OfficeHoursContext.LogEntries.ToList();
 
             return entryList;
+        }
+
+
+        [Route("api/logentry/DayLog")]
+        public DayViewModel DayLog(int day)
+        {
+            var entryList = OfficeHoursContext.LogEntries.Include(le => le.User).Where(le => le.Time.Day == day).ToList();
+            DayViewModel dayVM = new DayViewModel()
+            {
+                LogEntries = new List<LogEntryViewModel>()
+            };
+
+            entryList.ForEach(entryItem =>
+                dayVM.LogEntries.Add(new LogEntryViewModel()
+                {
+                    Direction = entryItem.Direction,
+                    Name = entryItem.Name,
+                    Time = entryItem.Time
+                }));
+
+          //  dayVM.LogEntries = dayVM.LogEntries.OrderBy(le => le.Time).ToList();
+            return dayVM;
         }
     }
 }

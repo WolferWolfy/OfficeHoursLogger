@@ -9,8 +9,6 @@ namespace OfficeHoursServer.Models
     public class OfficeHoursContext : DbContext
     {
         public DbSet<OfficeUser> Users { get; set; }
-        public DbSet<MonthLog> MonthLogs { get; set; }
-        public DbSet<DayLog> DayLogs { get; set; }
         public DbSet<LogEntry> LogEntries { get; set; }
     }
 }
