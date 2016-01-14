@@ -7,60 +7,144 @@ using OfficeHoursServer.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Data.Entity;
 using OfficeHoursServer.ViewModels;
+using AutoMapper;
+using Microsoft.AspNet.Authorization;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace OfficeHoursServer.Controllers
 {
-    public class LogEntryController : Controller
+
+    [Authorize(ActiveAuthenticationSchemes = "Bearer")]
+    public class LogEntryController : BaseController
     {
-        [FromServices]
-        public OfficeHoursContext OfficeHoursContext { get; set; }
 
-        [FromServices]
-        public ILogger<LogEntryController> Logger { get; set; }
-
-
+     //  api/logentry/entries
         [HttpGet]
-        [Route("api/logentry/ping")]
-        public object Ping()
-        {
-            var entryList = OfficeHoursContext.LogEntries.ToList();
-            return new
-            {
-                message = "Pong. You accessed an unprotected endpoint.",
-                entries = entryList.Count
-            };
-        }
-
-        [Route("api/logentry/entries")]
         public List<LogEntry> Entries()
         {
             var entryList = OfficeHoursContext.LogEntries.ToList();
-
+            var claims = User.Claims.Select(c => new { c.Type, c.Value });
             return entryList;
         }
 
-
-        [Route("api/logentry/DayLog")]
-        public DayViewModel DayLog(int day)
+        [HttpGet]
+        public DateTimeViewModel Now()
         {
-            var entryList = OfficeHoursContext.LogEntries.Include(le => le.User).Where(le => le.Time.Day == day).ToList();
-            DayViewModel dayVM = new DayViewModel()
-            {
-                LogEntries = new List<LogEntryViewModel>()
-            };
+            return Mapper.Map<DateTimeViewModel>(DateTime.Now);
+        }
 
-            entryList.ForEach(entryItem =>
-                dayVM.LogEntries.Add(new LogEntryViewModel()
-                {
-                    Direction = entryItem.Direction,
-                    Name = entryItem.Name,
-                    Time = entryItem.Time
-                }));
+        // api/logentry/DayLog
+        [HttpPost]
+        public DayViewModel DayLog([FromBody] DateTimeViewModel date)
+        {
+            DateTime requestDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
 
-          //  dayVM.LogEntries = dayVM.LogEntries.OrderBy(le => le.Time).ToList();
+            var entryList = OfficeHoursContext.LogEntries
+                .Include(le => le.User)
+                .Where(le =>le.User.Email.Equals(LoggedInUser.Email))
+                .Where(le => le.Time.Date == requestDate.Date)
+                .OrderBy(le => le.Time)
+                .ToList();
+
+            DayViewModel dayVM = new DayViewModel();
+            dayVM.LogEntries = Mapper.Map<List<LogEntryViewModel>>(entryList);
+
             return dayVM;
+        }
+
+        // api/logentry/MonthLog
+        [HttpPost]
+        public MonthViewModel MonthLog([FromBody] DateTimeViewModel date)
+        {
+            DateTime requestDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
+
+
+            var groupedByDayEntries = OfficeHoursContext.LogEntries
+                .Include(le => le.User)
+          //      .Where(le => le.User.Email.Equals(LoggedInUser.Email))
+                .Where(le => le.Time.Year == requestDate.Year && le.Time.Month == requestDate.Month)
+                .OrderBy(le => le.Time)
+                .GroupBy(le => le.Time.Day);// .ToList();
+
+            return SortIntoMonthByDays(groupedByDayEntries);
+        }
+
+        // api/logentry/AllLog
+        [HttpPost]
+        public List<MonthViewModel> AllLog()
+        {
+            List<MonthViewModel> everyMonth = new List<MonthViewModel>();
+
+            var entriesList = OfficeHoursContext.LogEntries
+                .Include(le => le.User)
+                .Where(le => le.UserId == LoggedInUser.OfficeUserId)
+                .OrderBy(le => le.Time);      
+           //     .GroupBy(le => le.Time.Day);
+
+
+            var byYear = entriesList.GroupBy(el => el.Time.Year).ToList();
+            var byMonth = entriesList.GroupBy(el => el.Time.Month).ToList();
+            var byDay = entriesList.GroupBy(el => el.Time.Day).ToList();
+
+            foreach (var groupByAYear in byYear)
+            {
+
+                var logEntriesInAYear = new List<LogEntry>();
+
+                int year = groupByAYear.Key;
+                foreach (LogEntry logEntry in groupByAYear)
+                {
+                    logEntriesInAYear.Add(logEntry);
+                }
+
+                var byMonthInAYear = logEntriesInAYear.GroupBy(el => el.Time.Month).ToList();
+
+                foreach (var groupByAMonth in byMonthInAYear)
+                {
+
+                    var logEntriesInAMonth = new List<LogEntry>();
+
+                    int month = groupByAMonth.Key;
+                    foreach (LogEntry logEntry in groupByAMonth)
+                    {
+                        logEntriesInAMonth.Add(logEntry);
+                    }
+
+                    var byDayInAMonthInAYear = logEntriesInAMonth.GroupBy(el => el.Time.Day);
+
+                    MonthViewModel monthlyModel = SortIntoMonthByDays(byDayInAMonthInAYear);
+                    everyMonth.Add(monthlyModel);
+                }
+            }
+
+            return everyMonth;
+        }
+
+
+
+        private MonthViewModel SortIntoMonthByDays(IEnumerable<IGrouping<int, LogEntry>> groupedByDayEntries)
+        {
+            MonthViewModel monthVM = new MonthViewModel();
+            monthVM.Days = new List<DayViewModel>();
+
+            foreach (var group in groupedByDayEntries)
+            {
+
+                DayViewModel theDayVM = new DayViewModel();
+                theDayVM.LogEntries = new List<LogEntryViewModel>();
+
+                int day = group.Key;
+                foreach (LogEntry logEntry in group)
+                {
+                    theDayVM.LogEntries.Add(Mapper.Map<LogEntryViewModel>(logEntry));
+                }
+
+              //  theDayVM.LogEntries = theDayVM.LogEntries.OrderBy(le => le.Time);
+                monthVM.Days.Add(theDayVM);
+            }
+
+            return monthVM;
         }
     }
 }

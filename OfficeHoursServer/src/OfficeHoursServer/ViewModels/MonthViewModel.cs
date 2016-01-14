@@ -7,7 +7,7 @@ namespace OfficeHoursServer.ViewModels
 {
     public class MonthViewModel
     {
-        public int Month { get { return Days.FirstOrDefault().Day.Month; } }
+        public DateTime Month { get { return Days.FirstOrDefault().Day; } }
         public TimeSpan AverageIn { get { return CalculateAverageIn(); } }
         public TimeSpan AverageOut { get { return CalculateAverageOut(); } }
 
@@ -17,7 +17,7 @@ namespace OfficeHoursServer.ViewModels
         {
             TimeSpan fullIn = new TimeSpan();
 
-            Days.ForEach(d => fullIn.Add(d.InOffice));
+            Days.ForEach(d => fullIn = fullIn.Add(d.InOffice));
             double averageSeconds = fullIn.TotalSeconds / Days.Count;
 
             return TimeSpan.FromSeconds(averageSeconds);
@@ -27,7 +27,7 @@ namespace OfficeHoursServer.ViewModels
         {
             TimeSpan fullOut = new TimeSpan();
 
-            Days.ForEach(d => fullOut.Add(d.OutOfOffice));
+            Days.ForEach(d => fullOut = fullOut.Add(d.OutOfOffice));
             double averageSeconds = fullOut.TotalSeconds / Days.Count;
 
             return TimeSpan.FromSeconds(averageSeconds);

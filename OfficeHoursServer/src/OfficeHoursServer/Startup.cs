@@ -78,14 +78,17 @@ namespace OfficeHoursServer
             app.UseIISPlatformHandler();
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" });
-            });
+              app.UseMvc(routes =>
+              {
+                  routes.MapRoute(
+                      name: "default",
+                      template: "api/{controller}/{action}/{id?}",
+                      defaults: new { controller = "Home", action = "Index"});
+              });
 
+            // app.UseMvc();
+
+            AutoMapperConfig.ConfigureAutomapper();
 
             SampleData.Initialize(app.ApplicationServices);
         }

@@ -9,7 +9,7 @@ namespace OfficeHoursServer.ViewModels
 {
     public class DayViewModel
     {
-        public DateTime Day { get { return Arrive; } }
+        public DateTime Day { get { return Arrive.Date; } }
         public DateTime Arrive { get { return LogEntries.FirstOrDefault().Time; } }
         public DateTime Leave { get { return LogEntries.LastOrDefault().Time; } }
         public TimeSpan InOffice { get {return CalculateInOfficeTime() ;} }

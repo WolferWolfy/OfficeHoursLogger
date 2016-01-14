@@ -12,7 +12,6 @@ namespace OfficeHoursServer.Controllers
     public class TestController : Controller
     {
         [HttpGet]
-        [Route("api/test/ping")]
         public object Ping()
         {
             return new
@@ -23,7 +22,6 @@ namespace OfficeHoursServer.Controllers
 
         [HttpGet]
         [Authorize(ActiveAuthenticationSchemes = "Bearer")]
-        [Route("api/test/secured/ping")]
         public object SecuredPing()
         {
             return new
