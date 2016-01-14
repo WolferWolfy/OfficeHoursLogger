@@ -18,22 +18,6 @@ namespace OfficeHoursServer.Controllers
     [Authorize(ActiveAuthenticationSchemes = "Bearer")]
     public class LogEntryController : BaseController
     {
-
-     //  api/logentry/entries
-        [HttpGet]
-        public List<LogEntry> Entries()
-        {
-            var entryList = OfficeHoursContext.LogEntries.ToList();
-            var claims = User.Claims.Select(c => new { c.Type, c.Value });
-            return entryList;
-        }
-
-        [HttpGet]
-        public DateTimeViewModel Now()
-        {
-            return Mapper.Map<DateTimeViewModel>(DateTime.Now);
-        }
-
         // api/logentry/DayLog
         [HttpPost]
         public DayViewModel DayLog([FromBody] DateTimeViewModel date)
@@ -59,20 +43,19 @@ namespace OfficeHoursServer.Controllers
         {
             DateTime requestDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
 
-
             var groupedByDayEntries = OfficeHoursContext.LogEntries
                 .Include(le => le.User)
-          //      .Where(le => le.User.Email.Equals(LoggedInUser.Email))
+                .Where(le => le.User.Email.Equals(LoggedInUser.Email))
                 .Where(le => le.Time.Year == requestDate.Year && le.Time.Month == requestDate.Month)
                 .OrderBy(le => le.Time)
-                .GroupBy(le => le.Time.Day);// .ToList();
+                .GroupBy(le => le.Time.Day);
 
             return SortIntoMonthByDays(groupedByDayEntries);
         }
 
-        // api/logentry/AllLog
+        // api/logentry/CompleteLog
         [HttpPost]
-        public List<MonthViewModel> AllLog()
+        public List<MonthViewModel> CompleteLog()
         {
             List<MonthViewModel> everyMonth = new List<MonthViewModel>();
 
@@ -80,45 +63,83 @@ namespace OfficeHoursServer.Controllers
                 .Include(le => le.User)
                 .Where(le => le.UserId == LoggedInUser.OfficeUserId)
                 .OrderBy(le => le.Time);      
-           //     .GroupBy(le => le.Time.Day);
-
 
             var byYear = entriesList.GroupBy(el => el.Time.Year).ToList();
-            var byMonth = entriesList.GroupBy(el => el.Time.Month).ToList();
-            var byDay = entriesList.GroupBy(el => el.Time.Day).ToList();
 
             foreach (var groupByAYear in byYear)
             {
-
                 var logEntriesInAYear = new List<LogEntry>();
 
-                int year = groupByAYear.Key;
                 foreach (LogEntry logEntry in groupByAYear)
                 {
                     logEntriesInAYear.Add(logEntry);
                 }
 
                 var byMonthInAYear = logEntriesInAYear.GroupBy(el => el.Time.Month).ToList();
-
                 foreach (var groupByAMonth in byMonthInAYear)
                 {
-
                     var logEntriesInAMonth = new List<LogEntry>();
 
-                    int month = groupByAMonth.Key;
                     foreach (LogEntry logEntry in groupByAMonth)
                     {
                         logEntriesInAMonth.Add(logEntry);
                     }
-
                     var byDayInAMonthInAYear = logEntriesInAMonth.GroupBy(el => el.Time.Day);
 
-                    MonthViewModel monthlyModel = SortIntoMonthByDays(byDayInAMonthInAYear);
-                    everyMonth.Add(monthlyModel);
+                    everyMonth.Add(SortIntoMonthByDays(byDayInAMonthInAYear));
                 }
             }
 
             return everyMonth;
+        }
+
+
+        // api/logentry/AddLogEntry
+        [HttpPost]
+        public bool AddLogEntry([FromBody] LogEntryViewModel logEntryVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return false;
+            }
+
+            LogEntry newEntry = Mapper.Map<LogEntry>(logEntryVM);
+
+            newEntry.User = LoggedInUser;
+
+            OfficeHoursContext.LogEntries.Add(newEntry);
+
+            return OfficeHoursContext.SaveChanges() > 0;
+        }
+
+
+        // api/logentry/UpdateLogEntry
+        [HttpPost]
+        public bool UpdateLogEntry([FromBody] LogEntryViewModel logEntryVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return false;
+            }
+
+            LogEntry updated = Mapper.Map<LogEntry>(logEntryVM);
+
+            LogEntry old = OfficeHoursContext.LogEntries
+                .Where(le => le.LogEntryId == updated.LogEntryId)
+                .Where(le => le.UserId == LoggedInUser.OfficeUserId)
+                .FirstOrDefault();
+
+            if (old != null)
+            {
+                old.Name = updated.Name;
+                old.Time = updated.Time;
+                old.Direction = updated.Direction;
+            }
+
+
+           // OfficeHoursContext.LogEntries.Update(old);
+
+            return OfficeHoursContext.SaveChanges() > 0;
         }
 
 

@@ -22,6 +22,7 @@ namespace OfficeHoursServer.Controllers
 
         public OfficeUser LoggedInUser { get { return OfficeHoursContext.Users.Where(u => u.Email.Equals(GetUserEmail())).FirstOrDefault() ; } }
 
+
         private string GetUserEmail()
         {
             return User.Claims.Where(c => c.Type.Equals("name")).Select(c => c.Value).FirstOrDefault();

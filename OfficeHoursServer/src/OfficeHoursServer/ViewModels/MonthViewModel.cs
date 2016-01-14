@@ -7,7 +7,7 @@ namespace OfficeHoursServer.ViewModels
 {
     public class MonthViewModel
     {
-        public DateTime Month { get { return Days.FirstOrDefault().Day; } }
+        public DateTimeViewModel Month { get { return Days.FirstOrDefault().Day; } }
         public TimeSpan AverageIn { get { return CalculateAverageIn(); } }
         public TimeSpan AverageOut { get { return CalculateAverageOut(); } }
 

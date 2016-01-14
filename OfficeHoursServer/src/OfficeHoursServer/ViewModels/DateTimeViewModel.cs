@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OfficeHoursServer.ViewModels
 {
-    public class DateTimeViewModel
+    public class DateTimeViewModel : IComparable
     {
         public int Year { get; set; }
         public int Month { get; set; }
@@ -14,5 +14,20 @@ namespace OfficeHoursServer.ViewModels
         public int Hour { get; set; }
         public int Minute { get; set; }
         public int Second { get; set; }
+
+        public DateTime ToDateTime()
+        {
+            return new DateTime(Year, Month, Day, Hour, Minute, Second);
+        }
+
+        public TimeSpan Subtract(DateTimeViewModel dateTimeVM)
+        {
+            return this.ToDateTime().Subtract(dateTimeVM.ToDateTime());
+        }
+
+        public int CompareTo(object obj)
+        {
+            return this.ToDateTime().CompareTo(((DateTimeViewModel)obj).ToDateTime());
+        }
     }
 }

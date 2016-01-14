@@ -8,8 +8,10 @@ namespace OfficeHoursServer.ViewModels
 {
     public class LogEntryViewModel
     {
-        public DateTime Time { get; set; }
+        public int LogEntryId { get; set; }
+        public DateTimeViewModel Time { get; set; }
         public ActionDirection Direction { get; set; }
         public string Name { get; set; }
+
     }
 }

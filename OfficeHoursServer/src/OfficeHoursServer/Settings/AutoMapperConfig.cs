@@ -17,7 +17,11 @@ namespace OfficeHoursServer.Settings
             {
                 config.CreateMap<DateTime, DateTimeViewModel>();
 
-                config.CreateMap<LogEntry, LogEntryViewModel>().ReverseMap();
+                config.CreateMap<LogEntry, LogEntryViewModel>();
+
+                config.CreateMap<LogEntryViewModel, LogEntry>()
+                    .ForMember(le =>le.Time,
+                               opt => opt.MapFrom(src =>src.Time.ToDateTime()));
             });
         }
     }
