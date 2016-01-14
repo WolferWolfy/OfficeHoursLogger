@@ -24,6 +24,12 @@ namespace OfficeHoursServer.Controllers
         {
             DateTime requestDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
 
+            var useruseruser = LoggedInUser;
+
+            if (useruseruser == null)
+            {
+                var a = "nulllll";
+            }
             var entryList = OfficeHoursContext.LogEntries
                 .Include(le => le.User)
                 .Where(le =>le.User.Email.Equals(LoggedInUser.Email))
@@ -43,12 +49,20 @@ namespace OfficeHoursServer.Controllers
         {
             DateTime requestDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
 
+            var useruseruser = LoggedInUser;
+
+            if (useruseruser == null)
+            {
+                var a = "nulllll";
+            }
+
             var groupedByDayEntries = OfficeHoursContext.LogEntries
                 .Include(le => le.User)
-                .Where(le => le.User.Email.Equals(LoggedInUser.Email))
+                .Where(le => le.User.OfficeUserId == LoggedInUser.OfficeUserId)
                 .Where(le => le.Time.Year == requestDate.Year && le.Time.Month == requestDate.Month)
                 .OrderBy(le => le.Time)
                 .GroupBy(le => le.Time.Day);
+
 
             return SortIntoMonthByDays(groupedByDayEntries);
         }
@@ -58,6 +72,13 @@ namespace OfficeHoursServer.Controllers
         public List<MonthViewModel> CompleteLog()
         {
             List<MonthViewModel> everyMonth = new List<MonthViewModel>();
+
+            var useruseruser = LoggedInUser;
+
+            if (useruseruser == null)
+            {
+                var a = "nulllll";
+            }
 
             var entriesList = OfficeHoursContext.LogEntries
                 .Include(le => le.User)
