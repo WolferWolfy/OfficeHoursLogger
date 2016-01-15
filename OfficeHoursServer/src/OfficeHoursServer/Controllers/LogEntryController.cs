@@ -157,12 +157,27 @@ namespace OfficeHoursServer.Controllers
                 old.Direction = updated.Direction;
             }
 
-
-           // OfficeHoursContext.LogEntries.Update(old);
-
             return OfficeHoursContext.SaveChanges() > 0;
         }
 
+        // api/logentry/DeleteLogEntry
+        [HttpPost]
+        public bool DeleteLogEntry(int logEntryId)
+        {
+            LogEntry toBeDeleted = OfficeHoursContext.LogEntries
+                .Where(le => le.LogEntryId == logEntryId)
+                .Where(le => le.UserId == LoggedInUser.OfficeUserId)
+                .FirstOrDefault();
+
+            if (toBeDeleted != null)
+            {
+                OfficeHoursContext.LogEntries.Remove(toBeDeleted);
+
+                return OfficeHoursContext.SaveChanges() > 0;
+            }
+
+            return false;
+        }
 
 
         private MonthViewModel SortIntoMonthByDays(IEnumerable<IGrouping<int, LogEntry>> groupedByDayEntries)
