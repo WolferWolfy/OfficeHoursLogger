@@ -7,20 +7,21 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "angular2-tour-of-heroes", "
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_51769"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\OfficeHoursLogger\TheHeroEditor\angular2-tour-of-heroes\"
+		Debug.AspNetCompiler.PhysicalPath = "angular2-tour-of-heroes\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51769\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_51769"
-		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\..\OfficeHoursLogger\TheHeroEditor\angular2-tour-of-heroes\"
+		Release.AspNetCompiler.PhysicalPath = "angular2-tour-of-heroes\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51769\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "51769"
+		SlnRelativePath = "angular2-tour-of-heroes\"
 	EndProjectSection
 EndProject
 Global
