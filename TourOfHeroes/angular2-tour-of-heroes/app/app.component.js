@@ -1,4 +1,4 @@
-System.register(['angular2/core', './hero'], function(exports_1) {
+System.register(['angular2/core', './click-me.component', './click-me2.component', './loop-back.component', './keyup.components', './little-tour.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,32 +8,42 @@ System.register(['angular2/core', './hero'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, hero_1;
+    var core_1, click_me_component_1, click_me2_component_1, loop_back_component_1, keyup_components_1, little_tour_component_1;
     var AppComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (hero_1_1) {
-                hero_1 = hero_1_1;
+            function (click_me_component_1_1) {
+                click_me_component_1 = click_me_component_1_1;
+            },
+            function (click_me2_component_1_1) {
+                click_me2_component_1 = click_me2_component_1_1;
+            },
+            function (loop_back_component_1_1) {
+                loop_back_component_1 = loop_back_component_1_1;
+            },
+            function (keyup_components_1_1) {
+                keyup_components_1 = keyup_components_1_1;
+            },
+            function (little_tour_component_1_1) {
+                little_tour_component_1 = little_tour_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
-                    this.title = 'Tour of Heroes';
-                    this.heroes = [
-                        new hero_1.Hero(1, 'Windstorm'),
-                        new hero_1.Hero(13, 'Bombasto'),
-                        new hero_1.Hero(15, 'Magneta'),
-                        new hero_1.Hero(20, 'Tornado')
-                    ];
-                    this.myHero = this.heroes[0];
                 }
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n      <h1>{{title}}</h1>\n      <h2>My favorite hero is: {{myHero.name}}</h2>\n      <p>Heroes:</p>\n      <ul>\n        <li *ngFor=\"#hero of heroes\">\n          {{ hero.name }}\n          </li>\n      </ul>\n      <p *ngIf=\"heroes.length > 3\">There are many heroes!</p>\n    "
+                        templateUrl: 'app/app.component.html',
+                        directives: [
+                            click_me_component_1.ClickMeComponent, click_me2_component_1.ClickMeComponent2,
+                            loop_back_component_1.LoopbackComponent,
+                            keyup_components_1.KeyUpComponent_v1, keyup_components_1.KeyUpComponent_v2, keyup_components_1.KeyUpComponent_v3, keyup_components_1.KeyUpComponent_v4,
+                            little_tour_component_1.LittleTourComponent
+                        ]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
