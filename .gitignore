@@ -1,5 +1,2 @@
 OfficeHoursServer/.vs/
-Angular2PoC/angular2-quickstart/node_modules/
-TheHeroEditor/angular2-tour-of-heroes/node_modules/
-TourOfHeroes/angular2-tour-of-heroes/node_modules/
-Heroes-Forms/node_modules/
+node_modules/
