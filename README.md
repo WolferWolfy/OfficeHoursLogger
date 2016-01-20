@@ -1,6 +1,6 @@
 # OfficeHoursLogger
 
-This project is a PoC to see ASP.NET 5 Web API, Angular JS (2), Auth0 and Xamarin work together.
+This project is a PoC to see ASP.NET Core 1.0 Web API, Angular 2, Auth0 and Xamarin work together.
 
 The product is to be an office hours logger / viewer application.
 
