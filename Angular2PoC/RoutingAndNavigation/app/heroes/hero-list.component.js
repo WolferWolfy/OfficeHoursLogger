@@ -23,22 +23,24 @@ System.register(['angular2/core', './hero.service', 'angular2/router'], function
             }],
         execute: function() {
             HeroListComponent = (function () {
-                function HeroListComponent(_router, _service) {
-                    this._router = _router;
+                function HeroListComponent(_service, _router, routeParams) {
                     this._service = _service;
+                    this._router = _router;
+                    this._selectedId = +routeParams.get('id');
                 }
+                HeroListComponent.prototype.isSelected = function (hero) { return hero.id === this._selectedId; };
+                HeroListComponent.prototype.onSelect = function (hero) {
+                    this._router.navigate(['HeroDetail', { id: hero.id }]);
+                };
                 HeroListComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._service.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
                 };
-                HeroListComponent.prototype.onSelect = function (hero) {
-                    this._router.navigate(['HeroDetail', { id: hero.id }]);
-                };
                 HeroListComponent = __decorate([
                     core_1.Component({
-                        template: "\n        <h2>HEROES</h2>\n        <ul>\n          <li *ngFor=\"#hero of heroes\"\n            (click)=\"onSelect(hero)\">\n            <span class=\"badge\">{{hero.id}}</span> {{hero.name}}\n          </li>\n        </ul>\n      "
+                        template: "\n        <h2>HEROES</h2>\n        <ul>\n          <li *ngFor=\"#hero of heroes\"\n            [class.selected]=\"isSelected(hero)\"\n            (click)=\"onSelect(hero)\">\n            <span class=\"badge\">{{hero.id}}</span> {{hero.name}}\n          </li>\n        </ul>\n      "
                     }), 
-                    __metadata('design:paramtypes', [router_1.Router, hero_service_1.HeroService])
+                    __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.Router, router_1.RouteParams])
                 ], HeroListComponent);
                 return HeroListComponent;
             })();

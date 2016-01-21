@@ -9,26 +9,39 @@ System.register(['angular2/core'], function(exports_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var CrisisListComponent;
+    var DialogService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            CrisisListComponent = (function () {
-                function CrisisListComponent() {
+            /**
+             * Async modal dialog service
+             * DialogService makes this app easier to test by faking this service.
+             * TODO: better modal implemenation that doesn't use window.confirm
+             */
+            DialogService = (function () {
+                function DialogService() {
                 }
-                CrisisListComponent = __decorate([
-                    core_1.Component({
-                        template: "\n        <h2>CRISIS CENTER</h2>\n        <p>Get your crisis here</p>"
-                    }), 
+                /**
+                 * Ask user to confirm an action. `message` explains the action and choices.
+                 * Returns promise resolving to `true`=confirm or `false`=cancel
+                 */
+                DialogService.prototype.confirm = function (message) {
+                    return new Promise(function (resolve, reject) {
+                        return resolve(window.confirm(message || 'Is it OK?'));
+                    });
+                };
+                ;
+                DialogService = __decorate([
+                    core_1.Injectable(), 
                     __metadata('design:paramtypes', [])
-                ], CrisisListComponent);
-                return CrisisListComponent;
+                ], DialogService);
+                return DialogService;
             })();
-            exports_1("CrisisListComponent", CrisisListComponent);
+            exports_1("DialogService", DialogService);
         }
     }
 });
-//# sourceMappingURL=crisis-list.component.js.map
+//# sourceMappingURL=dialog.service.js.map

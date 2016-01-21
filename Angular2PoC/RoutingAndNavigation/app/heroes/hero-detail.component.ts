@@ -27,7 +27,10 @@ export class HeroDetailComponent implements OnInit {
         this._service.getHero(id).then(hero => this.hero = hero);
     }
     gotoHeroes() {
-        // Like <a [routerLink]="['Heroes']">Heroes</a>
-        this._router.navigate(['Heroes']);
+        let heroId = this.hero ? this.hero.id : null;
+        // Pass along the hero id if available
+        // so that the HeroList component can select that hero.
+        // Add a totally useless `foo` parameter for kicks.
+        this._router.navigate(['Heroes', { id: heroId, foo: 'foo' }]);
     }
 }

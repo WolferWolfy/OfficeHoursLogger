@@ -34,8 +34,11 @@ System.register(['angular2/core', './hero.service', 'angular2/router'], function
                     this._service.getHero(id).then(function (hero) { return _this.hero = hero; });
                 };
                 HeroDetailComponent.prototype.gotoHeroes = function () {
-                    // Like <a [routerLink]="['Heroes']">Heroes</a>
-                    this._router.navigate(['Heroes']);
+                    var heroId = this.hero ? this.hero.id : null;
+                    // Pass along the hero id if available
+                    // so that the HeroList component can select that hero.
+                    // Add a totally useless `foo` parameter for kicks.
+                    this._router.navigate(['Heroes', { id: heroId, foo: 'foo' }]);
                 };
                 HeroDetailComponent = __decorate([
                     core_1.Component({

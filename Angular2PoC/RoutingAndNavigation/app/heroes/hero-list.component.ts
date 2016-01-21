@@ -1,12 +1,12 @@
-﻿// TODO SOMEDAY: Feature Componetized like HeroCenter
-import {Component, OnInit}   from 'angular2/core';
+﻿import {Component, OnInit}   from 'angular2/core';
 import {Hero, HeroService}   from './hero.service';
-import {Router}              from 'angular2/router';
+import {Router, RouteParams} from 'angular2/router';
 @Component({
     template: `
         <h2>HEROES</h2>
         <ul>
           <li *ngFor="#hero of heroes"
+            [class.selected]="isSelected(hero)"
             (click)="onSelect(hero)">
             <span class="badge">{{hero.id}}</span> {{hero.name}}
           </li>
@@ -15,13 +15,18 @@ import {Router}              from 'angular2/router';
 })
 export class HeroListComponent implements OnInit {
     heroes: Hero[];
+    private _selectedId: number;
     constructor(
+        private _service: HeroService,
         private _router: Router,
-        private _service: HeroService) { }
-    ngOnInit() {
-        this._service.getHeroes().then(heroes => this.heroes = heroes)
+        routeParams: RouteParams) {
+        this._selectedId = +routeParams.get('id');
     }
+    isSelected(hero: Hero) { return hero.id === this._selectedId; }
     onSelect(hero: Hero) {
         this._router.navigate(['HeroDetail', { id: hero.id }]);
+    }
+    ngOnInit() {
+        this._service.getHeroes().then(heroes => this.heroes = heroes)
     }
 }
