@@ -4,6 +4,15 @@ import {RouteConfig, Router, APP_BASE_HREF, ROUTER_PROVIDERS, ROUTER_DIRECTIVES,
 import {HTTP_PROVIDERS, Http} from 'angular2/http';
 import {AuthHttp, AuthConfig, tokenNotExpired, JwtHelper} from 'angular2-jwt';
 
+
+import {OfficeHoursService} from './log/officehours.service';
+import {EntryListComponent}     from './log/entry-list.component';
+import {MonthListComponent}     from './log/month-list.component';
+import {AboutComponent}     from './about.component';
+
+//import {DialogService}         from './dialog.service';
+//import {HeroService}           from './heroes/hero.service';
+
 declare var Auth0Lock;
 
 @Component({
@@ -28,21 +37,26 @@ class PrivateRoute {}
 
 @Component({
   selector: 'app',
-  directives: [ ROUTER_DIRECTIVES ],
+  directives: [ROUTER_DIRECTIVES],
+  //providers: [DialogService, HeroService],
+  providers: [OfficeHoursService],
   template: `
     <h1>Office Hours: Angular2 with Auth0</h1>
-	<div>changed package.json   angular2 beta 1 to beta 0 
-	 <br> "dependencies": {
-     <br>"angular2": "2.0.0-beta.0",</div>
+    <nav *ngIf="loggedIn()">
+      <a [routerLink]="['Entries']">Entries</a>
+      <a [routerLink]="['Months']">Months</a>
+      <a [routerLink]="['About']">About</a>
+      <button *ngIf="loggedIn()" (click)="logout()">Logout</button>
+    </nav>
+    <router-outlet></router-outlet>
+
+
+<div>
     <button *ngIf="!loggedIn()" (click)="login()">Login</button>
     <button *ngIf="loggedIn()" (click)="logout()">Logout</button>
-    <hr>
-    <div>
-      <button [routerLink]="['./PublicRoute']">Public Route</button>
-      <button *ngIf="loggedIn()" [routerLink]="['./PrivateRoute']">Private Route</button>
-      <router-outlet></router-outlet>
-    </div>
-    <hr>
+   
+</div>
+  <hr>
     <button (click)="getThing()">Get Thing</button>
     <button *ngIf="loggedIn()" (click)="tokenSubscription()">Show Token from Observable</button>
     <button (click)="getSecretThing()">Get Secret Thing</button>
@@ -51,8 +65,12 @@ class PrivateRoute {}
 })
 
 @RouteConfig([
-  { path: '/public-route', component: PublicRoute, as: 'PublicRoute' },
-  { path: '/private-route', component: PrivateRoute, as: 'PrivateRoute' }
+        { path: '/public-route', component: PublicRoute, as: 'PublicRoute' },
+        { path: '/private-route', component: PrivateRoute, as: 'PrivateRoute' },
+
+        { path: '/entries', component: EntryListComponent, name: 'Entries' },
+        { path: '/months', component: MonthListComponent, name: 'Months' },
+        { path: '/about', component: AboutComponent, name: 'About' },
 ])
 
 export class App {

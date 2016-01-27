@@ -7,6 +7,9 @@ namespace OfficeHoursServer.ViewModels
 {
     public class MonthViewModel
     {
+        // unique for a user.
+        public int Id { get { return Month.Year * 100 + Month.Month; } }
+
         public DateTimeViewModel Month { get { return Days.FirstOrDefault().Day; } }
         public TimeSpan AverageIn { get { return CalculateAverageIn(); } }
         public TimeSpan AverageOut { get { return CalculateAverageOut(); } }
