@@ -10,31 +10,15 @@ import {Router, RouteParams} from 'angular2/router';
       <li *ngFor="#entry of entries"
         [class.selected]="isSelected(entry)"
         (click)="onSelect(entry)">
-        <span class="badge">{{entry.id}}</span> {{entry.name}}
+        <span class="badge">{{entry.getTime()}}</span> {{entry.name}}
       </li>
     </ul>
-<h3> entries2</h3>
-<ul>
-      <li *ngFor="#entry of entries2"
-        [class.selected]="isSelected(entry)"
-        (click)="onSelect(entry)">
-        <span class="badge">{{entry.id}}</span> {{entry.name}}
-      </li>
-    </ul>
-
         `,
    providers: [OfficeHoursService]
 })
 export class EntryListComponent implements OnInit {
 
-    entries = [
-    new EntryModel(1, "Arrive"),
-    new EntryModel(2, "Break start"),
-    new EntryModel(3, "Break end"),
-    new EntryModel(4, "Depart")
-    ];
-
-    entries2: EntryModel[];
+    entries: EntryModel[];
 
     private _selectedEntryId: number;
 
@@ -42,14 +26,14 @@ export class EntryListComponent implements OnInit {
         private _service: OfficeHoursService,
         private _router: Router,
         routeParams: RouteParams) {
-        this._selectedEntryId = 5; //+routeParams.get('id');
+        this._selectedEntryId = +routeParams.get('id');
+
     }
 
     isSelected(entryModel: EntryModel) { return entryModel.id === this._selectedEntryId; }
 
     ngOnInit() {
-        //this._service.getEntries().then(entries => this.entries2 = entries);
-       // this.entries2 = this._service.getSimpleEntries;
+        this._service.getEntries().then(entries => this.entries = entries);
     }
 
     onSelect(entryModel: EntryModel) {

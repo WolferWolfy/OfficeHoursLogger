@@ -1,20 +1,21 @@
 import {bootstrap} from 'angular2/platform/browser';
 import {Component, View, provide} from 'angular2/core';
-import {RouteConfig, Router, APP_BASE_HREF, ROUTER_PROVIDERS, ROUTER_DIRECTIVES, CanActivate} from 'angular2/router';
+import {RouteConfig, Router, APP_BASE_HREF, ROUTER_PROVIDERS, ROUTER_DIRECTIVES, CanActivate , LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {HTTP_PROVIDERS, Http} from 'angular2/http';
 import {AuthHttp, AuthConfig, tokenNotExpired, JwtHelper} from 'angular2-jwt';
 
 
-import {OfficeHoursService} from './log/officehours.service';
+import {OfficeHoursService}     from './log/officehours.service';
 import {EntryListComponent}     from './log/entry-list.component';
+import {EntryDetailComponent}   from './log/entry-detail.component';
 import {MonthListComponent}     from './log/month-list.component';
-import {AboutComponent}     from './about.component';
+import {AboutComponent}         from './about.component';
 
 //import {DialogService}         from './dialog.service';
 //import {HeroService}           from './heroes/hero.service';
 
 declare var Auth0Lock;
-
+/*
 @Component({
   selector: 'public-route'
 })
@@ -34,11 +35,11 @@ class PublicRoute {}
 @CanActivate(() => tokenNotExpired())
 
 class PrivateRoute {}
+*/
 
 @Component({
   selector: 'app',
-  directives: [ROUTER_DIRECTIVES],
-  //providers: [DialogService, HeroService],
+  directives: [ROUTER_DIRECTIVES, EntryListComponent, EntryDetailComponent, MonthListComponent, AboutComponent],
   providers: [OfficeHoursService],
   template: `
     <h1>Office Hours: Angular2 with Auth0</h1>
@@ -65,12 +66,14 @@ class PrivateRoute {}
 })
 
 @RouteConfig([
-        { path: '/public-route', component: PublicRoute, as: 'PublicRoute' },
-        { path: '/private-route', component: PrivateRoute, as: 'PrivateRoute' },
+    //    { path: '/public-route', component: PublicRoute, as: 'PublicRoute' },
+    //    { path: '/private-route', component: PrivateRoute, as: 'PrivateRoute' },
 
-        { path: '/entries', component: EntryListComponent, name: 'Entries' },
+
         { path: '/months', component: MonthListComponent, name: 'Months' },
-        { path: '/about', component: AboutComponent, name: 'About' },
+        { path: '/entries', component: EntryListComponent, name: 'Entries'},
+        { path: '/entry/:id', component: EntryDetailComponent, name: 'Entry' },
+        { path: '/about', component: AboutComponent, name: 'About'/*, useAsDefault: true*/ }
 ])
 
 export class App {
@@ -145,7 +148,9 @@ bootstrap(App, [
   ROUTER_PROVIDERS,
   provide(AuthConfig, { useFactory: () => {
     return new AuthConfig();
-  }}),
-  AuthHttp,
-  provide(APP_BASE_HREF, {useValue:'/'})
+  }
+  }),
+  provide(LocationStrategy, { useClass: HashLocationStrategy }),
+  AuthHttp//,
+//  provide(APP_BASE_HREF, {useValue:'/'})
 ]);
