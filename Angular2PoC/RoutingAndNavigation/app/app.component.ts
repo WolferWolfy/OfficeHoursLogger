@@ -5,6 +5,16 @@ import {HeroListComponent}     from './heroes/hero-list.component';
 import {HeroDetailComponent}   from './heroes/hero-detail.component';
 import {DialogService}         from './dialog.service';
 import {HeroService}           from './heroes/hero.service';
+
+
+import {OfficeHoursService}     from './log/officehours.service';
+import {EntryListComponent}     from './log/entry-list.component';
+import {EntryDetailComponent}   from './log/entry-detail.component';
+import {MonthListComponent}     from './log/month-list.component';
+import {AboutComponent}         from './about.component';
+
+
+
 @Component({
     selector: 'my-app',
     template: `
@@ -12,10 +22,13 @@ import {HeroService}           from './heroes/hero.service';
         <nav>
           <a [routerLink]="['CrisisCenter']">Crisis Center</a>
           <a [routerLink]="['Heroes']">Heroes</a>
+          <a [routerLink]="['Entries']">Entries</a>
+          <a [routerLink]="['Months']">Months</a>
+          <a [routerLink]="['About']">About</a>
         </nav>
         <router-outlet></router-outlet>
       `,
-    providers: [DialogService, HeroService],
+    providers: [DialogService, HeroService, OfficeHoursService],
     directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([
@@ -27,6 +40,10 @@ import {HeroService}           from './heroes/hero.service';
     },
     { path: '/heroes', name: 'Heroes', component: HeroListComponent },
     { path: '/hero/:id', name: 'HeroDetail', component: HeroDetailComponent },
-    { path: '/disaster', name: 'Asteroid', redirectTo: ['CrisisCenter', 'CrisisDetail', { id: 3 }] }
+    { path: '/disaster', name: 'Asteroid', redirectTo: ['CrisisCenter', 'CrisisDetail', { id: 3 }] },
+    { path: '/months', component: MonthListComponent, name: 'Months' },
+    { path: '/entries', component: EntryListComponent, name: 'Entries' },
+    { path: '/entry/:id', component: EntryDetailComponent, name: 'Entry' },
+    { path: '/about', component: AboutComponent, name: 'About' }
 ])
 export class AppComponent { }
