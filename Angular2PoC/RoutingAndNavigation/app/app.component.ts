@@ -29,19 +29,20 @@ declare var Auth0Lock;
           <a [routerLink]="['Entries']">Entries</a>
           <a [routerLink]="['Months']">Months</a>
           <a [routerLink]="['About']">About</a>
+          <button *ngIf="loggedIn()" (click)="logout()">Logout</button>
         </nav>
         <router-outlet></router-outlet>
 
+<hr>
         <div>
             <button *ngIf="!loggedIn()" (click)="login()">Login</button>
             <button *ngIf="loggedIn()" (click)="logout()">Logout</button>
    
-        </div>
-        <hr>
         <button (click)="getThing()">Get Thing</button>
         <button *ngIf="loggedIn()" (click)="tokenSubscription()">Show Token from Observable</button>
         <button (click)="getSecretThing()">Get Secret Thing</button>
         <button *ngIf="loggedIn()" (click)="useJwtHelper()">Use Jwt Helper</button>
+</div>
       `,
     providers: [DialogService, HeroService, OfficeHoursService, JwtHelper, AuthHttp],
     //providers: [DialogService, HeroService, OfficeHoursService], // do I need to list those above providers?

@@ -26,14 +26,20 @@ export class EntryListComponent implements OnInit {
         private _service: OfficeHoursService,
         private _router: Router,
         routeParams: RouteParams) {
-        this._selectedEntryId = +routeParams.get('id');
+        this._selectedEntryId = +routeParams.get('entryId');
 
     }
 
     isSelected(entryModel: EntryModel) { return entryModel.id === this._selectedEntryId; }
 
     ngOnInit() {
-        this._service.getEntries().then(entries => this.entries = entries);
+      //based on selectedEntryId we should fetch that day's entries.
+        if (this._selectedEntryId) {
+            this._service.getEntriesForDayFromEntryId(this._selectedEntryId).then(entries => this.entries = entries);
+        }
+        else {//fetch default entries
+            this._service.getEntries().then(entries => this.entries = entries);
+        }
     }
 
     onSelect(entryModel: EntryModel) {

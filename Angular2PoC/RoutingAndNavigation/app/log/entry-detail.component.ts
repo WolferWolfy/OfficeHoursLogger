@@ -36,7 +36,7 @@ export class EntryDetailComponent implements OnInit {
         // Pass along the hero id if available
         // so that the HeroList component can select that hero.
         // Add a totally useless `foo` parameter for kicks.
-        this._router.navigate(['Entries', { id: entryId }]);//, day: this.entry.date }]);
+        this._router.navigate(['Entries', { entryId: entryId }]);//, day: this.entry.date }]);
     }
 }
 
