@@ -38,7 +38,7 @@ System.register(['angular2/core', './officehours.service', 'angular2/router'], f
                     // Pass along the hero id if available
                     // so that the HeroList component can select that hero.
                     // Add a totally useless `foo` parameter for kicks.
-                    this._router.navigate(['Entries', { id: entryId, day: this.entry.date }]);
+                    this._router.navigate(['Entries', { id: entryId }]); //, day: this.entry.date }]);
                 };
                 EntryDetailComponent = __decorate([
                     core_1.Component({

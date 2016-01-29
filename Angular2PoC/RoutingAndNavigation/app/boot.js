@@ -29,7 +29,7 @@ System.register(['angular2/platform/browser', './app.component', 'angular2/route
                         return new angular2_jwt_1.AuthConfig();
                     }
                 }),
-                angular2_jwt_1.AuthHttp // breaks with SyntaxError: expected expression, got '<' 	node_modules/angular2-jwt/angular2-jwt
+                angular2_jwt_1.AuthHttp
             ]);
         }
     }

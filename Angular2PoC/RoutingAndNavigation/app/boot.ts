@@ -14,5 +14,5 @@ bootstrap(AppComponent, [
             return new AuthConfig();
         }
     }),
-    AuthHttp // breaks with SyntaxError: expected expression, got '<' 	node_modules/angular2-jwt/angular2-jwt
+    AuthHttp
 ]);
