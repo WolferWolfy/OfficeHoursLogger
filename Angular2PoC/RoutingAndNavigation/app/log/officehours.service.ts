@@ -2,9 +2,18 @@
 import {EntryModel} from './entry.model';
 import {DayModel} from './day.model';
 import {MonthModel} from './month.model';
+import {DateTimeModel} from './datetime.model';
+
+import {Http}       from 'angular2/http';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class OfficeHoursService {
+
+    constructor(private http: Http) { }
+
+    private _entriesUrl = 'app/json/entries.json';
+
     getMonths() { return monthsPromise; }
 
     getMonth(year: number | string, month: number | string) {
@@ -19,8 +28,11 @@ export class OfficeHoursService {
             .then(days => days.filter(d => d.year === year && d.month === month && d.day === day)[0]);
     }
 
-    getEntries() { return entriesPromise; }
-
+    getEntries() {
+        return this.http.get(this._entriesUrl)
+            .map(res => <EntryModel[]>res.json().data)
+            .catch(this.logAndPassOn);
+    }
     getEntriesForDate(date: Date) {
         // later query based on date 
         return entriesPromise;
@@ -46,6 +58,13 @@ export class OfficeHoursService {
             crisesPromise.then(crises => crises.push(crisis));
         }
     }*/
+
+    private logAndPassOn(error: Error) {
+        // in a real world app, we may send the server to some remote logging infrastructure
+        // instead of just logging it to the console
+        console.error(error);
+        return Observable.throw(error);
+    }
 }
 
 var months = [
@@ -70,10 +89,10 @@ var daysPromise = Promise.resolve(days);
 
 //new Date(year, month, day, hours, minutes, seconds)
 var entries = [
-    new EntryModel(1, "Arrive", new Date(2016, 2, 1, 8, 55, 0)),
-    new EntryModel(2, "Break start", new Date(2016, 2, 1, 11, 30, 0)),
-    new EntryModel(3, "Break end", new Date(2016, 2, 1, 12, 5, 0)),
-    new EntryModel(4, "Depart", new Date(2016, 2, 1, 17, 30, 0)),
+    new EntryModel(1, "Arrive", new DateTimeModel(2016, 2, 1, 8, 55, 0), 0),
+    new EntryModel(2, "Break start", new DateTimeModel(2016, 2, 1, 11, 30, 0), 1),
+    new EntryModel(3, "Break end", new DateTimeModel(2016, 2, 1, 12, 5, 0), 0),
+    new EntryModel(4, "Depart", new DateTimeModel(2016, 2, 1, 17, 30, 0), 1),
 ];
 
 var entriesPromise = Promise.resolve(entries);

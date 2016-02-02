@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "tsc": "tsc",
-    "tsc:w": "tsc -w --outDir C:\\OfficeHoursLogger\\Angular2PoC\\RoutingAndNavigation\\app\\build",
+    "tsc:w": "tsc -w --outDir app\\build",
     "lite": "lite-server",
     "start": "concurrent \"npm run tsc:w\" \"npm run lite\" "
   },

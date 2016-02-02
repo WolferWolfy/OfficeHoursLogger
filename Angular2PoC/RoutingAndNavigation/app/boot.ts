@@ -1,4 +1,9 @@
 import {bootstrap}        from 'angular2/platform/browser';
+
+
+// Add all operators to Observable
+import 'rxjs/Rx';
+
 import {AppComponent}     from './app.component';
 
 import {RouteConfig, Router, APP_BASE_HREF, ROUTER_PROVIDERS, ROUTER_DIRECTIVES, CanActivate} from 'angular2/router';

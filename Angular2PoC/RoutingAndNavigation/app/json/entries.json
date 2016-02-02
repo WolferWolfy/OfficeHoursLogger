@@ -1,0 +1,57 @@
+﻿{
+  "data": [
+    {
+      "id": 1,
+      "name": "Arrive",
+      "datetime": {
+        "year": 2016,
+        "month": 2,
+        "day": 2,
+        "hour": 8,
+        "minute": 57,
+        "second": 0
+      },
+      "actionDirection": 0
+    },
+    {
+      "id": 2,
+      "name": "Break start",
+      "datetime": {
+        "year": 2016,
+        "month": 2,
+        "day": 2,
+        "hour": 12,
+        "minute": 30,
+        "second": 0
+      },
+      "actionDirection": 1
+    },
+    {
+      "id": 3,
+      "name": "Break end",
+      "datetime": {
+        "year": 2016,
+        "month": 2,
+        "day": 2,
+        "hour": 13,
+        "minute": 58,
+        "second": 0
+      },
+      "actionDirection": 0
+    },
+    {
+      "id": 4,
+      "name": "Depart",
+      "datetime": {
+        "year": 2016,
+        "month": 2,
+        "day": 2,
+        "hour": 18,
+        "minute": 0,
+        "second": 0
+      },
+      "actionDirection": 1
+    }
+  ]
+}
+

@@ -17,7 +17,7 @@ export class HeroListComponent implements OnInit {
     heroes: Hero[];
     private _selectedId: number;
     constructor(
-        private _service: HeroService,
+        private _heroService: HeroService,
         private _router: Router,
         routeParams: RouteParams) {
         this._selectedId = +routeParams.get('id');
@@ -26,7 +26,11 @@ export class HeroListComponent implements OnInit {
     onSelect(hero: Hero) {
         this._router.navigate(['HeroDetail', { id: hero.id }]);
     }
+
     ngOnInit() {
-        this._service.getHeroes().then(heroes => this.heroes = heroes)
+        this._heroService.getHeroes()
+            .subscribe(
+            heroes => this.heroes = heroes,
+            error => alert(`Server error. Try again later`));
     }
 }
