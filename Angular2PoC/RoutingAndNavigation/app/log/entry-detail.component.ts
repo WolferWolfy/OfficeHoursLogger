@@ -28,11 +28,13 @@ export class EntryDetailComponent implements OnInit {
 
     ngOnInit() {
         let id = this._routeParams.get('id');
-        this._service.getEntry(id).then(hero => this.entry = hero);
+         this._service.getEntry(id).subscribe(freshEntry => this.entry = freshEntry);
+
+        //.then(hero => this.entry = hero);
     }
 
     gotoEntries() {
-        let entryId = this.entry ? this.entry.id : null;
+        let entryId = this.entry ? this.entry.logEntryId : null;
         // Pass along the hero id if available
         // so that the HeroList component can select that hero.
         // Add a totally useless `foo` parameter for kicks.

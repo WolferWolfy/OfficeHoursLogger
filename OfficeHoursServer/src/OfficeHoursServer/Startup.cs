@@ -14,6 +14,8 @@ using Microsoft.AspNet.Authentication.JwtBearer;
 using System.Security.Claims;
 using OfficeHoursServer.Models;
 using Microsoft.Data.Entity;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace OfficeHoursServer
 {
@@ -34,7 +36,19 @@ namespace OfficeHoursServer
         {
             services.Configure<Auth0Settings>(Configuration.GetSection("Auth0"));
 
-            services.AddMvc();
+            services.AddCors(options =>
+                            options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
+                                                                .AllowAnyMethod()
+                                                                .AllowAnyHeader()));
+
+            services.AddMvc()
+                   .AddJsonOptions(options =>
+                   {
+                       options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                       //options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
+                       //options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+
+                   });
 
             services.AddEntityFramework()
                 .AddSqlServer()
@@ -50,6 +64,9 @@ namespace OfficeHoursServer
 
             var logger = loggerfactory.CreateLogger("Auth0");
             var settings = app.ApplicationServices.GetService<IOptions<Auth0Settings>>();
+
+            app.UseCors("AllowAll");
+
 
             app.UseJwtBearerAuthentication(options =>
             {

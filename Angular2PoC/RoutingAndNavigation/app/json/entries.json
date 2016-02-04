@@ -1,9 +1,9 @@
 ﻿{
-  "data": [
+  "logEntries": [
     {
-      "id": 1,
+      "logEntryId": 1,
       "name": "Arrive",
-      "datetime": {
+      "time": {
         "year": 2016,
         "month": 2,
         "day": 2,
@@ -11,12 +11,12 @@
         "minute": 57,
         "second": 0
       },
-      "actionDirection": 0
+      "direction": 0
     },
     {
-      "id": 2,
+      "logEntryId": 2,
       "name": "Break start",
-      "datetime": {
+      "time": {
         "year": 2016,
         "month": 2,
         "day": 2,
@@ -24,12 +24,12 @@
         "minute": 30,
         "second": 0
       },
-      "actionDirection": 1
+      "direction": 1
     },
     {
-      "id": 3,
+      "logEntryId": 3,
       "name": "Break end",
-      "datetime": {
+      "time": {
         "year": 2016,
         "month": 2,
         "day": 2,
@@ -37,12 +37,12 @@
         "minute": 58,
         "second": 0
       },
-      "actionDirection": 0
+      "direction": 0
     },
     {
-      "id": 4,
+      "logEntryId": 4,
       "name": "Depart",
-      "datetime": {
+      "time": {
         "year": 2016,
         "month": 2,
         "day": 2,
@@ -50,7 +50,7 @@
         "minute": 0,
         "second": 0
       },
-      "actionDirection": 1
+      "direction": 1
     }
   ]
 }

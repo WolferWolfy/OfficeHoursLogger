@@ -11,7 +11,7 @@ import {Router, RouteParams} from 'angular2/router';
       <li *ngFor="#entry of entries"
         [class.selected]="isSelected(entry)"
         (click)="onSelect(entry)">
-        <span class= {{getDirection(entry)}} >{{getTime(entry)}}</span> {{entry.name}} - {{entry.actionDirection}}
+        <span class= {{getDirection(entry)}} >{{getTime(entry)}}</span> {{entry.name}} - {{entry.direction}}
       </li>
     </ul>
         `,
@@ -37,33 +37,40 @@ export class EntryListComponent implements OnInit {
 
     }
 
-    isSelected(entryModel: EntryModel) { return entryModel.id === this._selectedEntryId; }
+    isSelected(entryModel: EntryModel) { return entryModel.logEntryId === this._selectedEntryId; }
 
     ngOnInit() {
       //based on selectedEntryId we should fetch that day's entries.
         if (this._selectedEntryId) {
-            this._service.getEntriesForDayFromEntryId(this._selectedEntryId).then(entries => this.entries = entries);
+           // this._service.getEntriesForDayFromEntryId(this._selectedEntryId).then(entries => this.entries = entries);
+            this._service.getEntries().subscribe(
+                entries => this.entries = entries,
+                error => alert(error));
         }
         else {//fetch default entries
          //   this._service.getEntries().then(entries => this.entries = entries);
+
             this._service.getEntries().subscribe(
                 entries => this.entries = entries,
                 error => alert(error));   
         }
+
+        
+       // this.entries = this._service.getEntries2();
     }
 
     getTime(entryVM: EntryModel) {
-        return ("0" + (entryVM.datetime.hour)).slice(-2) + ":" + ("0" + (entryVM.datetime.minute)).slice(-2) + ":" + ("0" + (entryVM.datetime.second)).slice(-2);
+        return ("0" + (entryVM.time.hour)).slice(-2) + ":" + ("0" + (entryVM.time.minute)).slice(-2) + ":" + ("0" + (entryVM.time.second)).slice(-2);
     }
     
     getDirection(entryVM : EntryModel) {
-        return "badge" + ( entryVM.actionDirection ? "Exit" : "Enter");
+        return "badge" + ( entryVM.direction ? "Exit" : "Enter");
     }
 
 
     onSelect(entryModel: EntryModel) {
         // will crash when data is read from json.
-        //console.debug(this.entries[0].datetime.getTime());Read
-        this._router.navigate(['Entry', { id: entryModel.id }]);
+     //   console.debug(this.entries[0].getTime());
+        this._router.navigate(['Entry', { id: entryModel.logEntryId }]);
     }
 }

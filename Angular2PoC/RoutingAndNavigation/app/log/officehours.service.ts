@@ -12,7 +12,12 @@ export class OfficeHoursService {
 
     constructor(private http: Http) { }
 
-    private _entriesUrl = 'app/json/entries.json';
+  //  private _entriesJson = 'app/json/entries.json';
+    private _entriesUrl = 'http://localhost:64485/api/test/DayLog';
+
+ //   latestEntries: Observable<EntryModel[]>;
+    latestEntries: EntryModel[];
+
 
     getMonths() { return monthsPromise; }
 
@@ -29,26 +34,49 @@ export class OfficeHoursService {
     }
 
     getEntries() {
-        return this.http.get(this._entriesUrl)
-            .map(res => <EntryModel[]>res.json().data)
+        var entries = this.http.get(this._entriesUrl)
+            .map(res => <EntryModel[]>(res.json()["logEntries"]))
             .catch(this.logAndPassOn);
+
+        entries.subscribe(entries => this.latestEntries = entries);
+
+        return entries;
     }
+
+
+
     getEntriesForDate(date: Date) {
         // later query based on date 
         return entriesPromise;
     }
-
 
     getEntriesForDayFromEntryId(entryId: number) {
         // later query based on entryId 
         return entriesPromise;
     }
 
+
     getEntry(id: number | string) {
-        return entriesPromise
-            .then(entries => entries.filter(e => e.id === +id)[0]);
+        return this.http.get(this._entriesUrl)
+            .map(res => ((<EntryModel[]>res.json()["logEntries"]).filter(e => e.logEntryId === +id))[0])
+            .catch(this.logAndPassOn);
     }
 
+    /*
+    getEntry(id: number | string) {
+        
+        if (!this.latestEntries) {
+            return this.latestEntries.filter(e => e.logEntryId === +id)[0];
+        }
+
+       this.getEntries().subscribe(
+           entries => this.latestEntries = entries,
+           error => alert(error))            ; 
+
+        return this.latestEntries.filter(e => e.logEntryId === +id)[0];
+    }
+
+    */
   /*  static nextCrisisId = 100;
 
     addMonth(year: number, month: number) {
