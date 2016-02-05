@@ -3,6 +3,7 @@ import {NgClass} from 'angular2/common';
 import {EntryModel} from './entry.model';
 import {OfficeHoursService} from './officehours.service';
 import {Router, RouteParams} from 'angular2/router';
+import {DateTimeModel} from './datetime.model';
 
 @Component({
     template: `
@@ -29,11 +30,21 @@ export class EntryListComponent implements OnInit {
     isDisabled = false;
     private _selectedEntryId: number;
 
+    private _selectedDay: DateTimeModel;
+
     constructor(
         private _service: OfficeHoursService,
         private _router: Router,
         routeParams: RouteParams) {
         this._selectedEntryId = +routeParams.get('entryId');
+
+        this._selectedDay = new DateTimeModel(0, 0, 0, 0, 0, 0);
+        this._selectedDay.day = +routeParams.get('day');
+        this._selectedDay.month = +routeParams.get('month');
+        if (this._selectedDay.month == null) {
+            this._selectedDay.month = 1;
+        }
+        this._selectedDay.year = +routeParams.get('year');
 
     }
 
@@ -41,22 +52,22 @@ export class EntryListComponent implements OnInit {
 
     ngOnInit() {
       //based on selectedEntryId we should fetch that day's entries.
-        if (this._selectedEntryId) {
-           // this._service.getEntriesForDayFromEntryId(this._selectedEntryId).then(entries => this.entries = entries);
+        if (this._selectedEntryId && this._selectedEntryId != 0) {
+            // this._service.getEntriesForDayFromEntryId(this._selectedEntryId).then(entries => this.entries = entries);
+            this._service.getEntriesForDate(this._selectedDay).subscribe(
+                entries => this.entries = entries,
+                error => alert(error));
+        }
+        else if (this._selectedDay.day != 0) {
+            this._service.getEntriesForDate(this._selectedDay).subscribe(
+                entries => this.entries = entries,
+                error => alert(error));
+        }
+        else {
             this._service.getEntries().subscribe(
                 entries => this.entries = entries,
                 error => alert(error));
         }
-        else {//fetch default entries
-         //   this._service.getEntries().then(entries => this.entries = entries);
-
-            this._service.getEntries().subscribe(
-                entries => this.entries = entries,
-                error => alert(error));   
-        }
-
-        
-       // this.entries = this._service.getEntries2();
     }
 
     getTime(entryVM: EntryModel) {

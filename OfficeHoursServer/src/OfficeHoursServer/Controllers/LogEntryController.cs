@@ -22,6 +22,10 @@ namespace OfficeHoursServer.Controllers
         [HttpPost]
         public DayViewModel DayLog([FromBody] DateTimeViewModel date)
         {
+            if (date.Day == 0)
+            {
+                date.Day = 1;
+            }
             DateTime requestDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
 
             var useruseruser = LoggedInUser;
@@ -29,10 +33,11 @@ namespace OfficeHoursServer.Controllers
             if (useruseruser == null)
             {
                 var a = "nulllll";
+                useruseruser = OfficeHoursContext.Users.Where(u => u.Email.Equals("office1@o.o")).FirstOrDefault();
             }
             var entryList = OfficeHoursContext.LogEntries
                 .Include(le => le.User)
-                .Where(le =>le.User.Email.Equals(LoggedInUser.Email))
+                .Where(le =>le.User.Email.Equals(useruseruser.Email))
                 .Where(le => le.Time.Date == requestDate.Date)
                 .OrderBy(le => le.Time)
                 .ToList();
@@ -47,6 +52,10 @@ namespace OfficeHoursServer.Controllers
         [HttpPost]
         public MonthViewModel MonthLog([FromBody] DateTimeViewModel date)
         {
+            if (date.Day == 0)
+            {
+                date.Day = 1;
+            }
             DateTime requestDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
 
             var useruseruser = LoggedInUser;
@@ -54,11 +63,12 @@ namespace OfficeHoursServer.Controllers
             if (useruseruser == null)
             {
                 var a = "nulllll";
+                useruseruser = OfficeHoursContext.Users.Where(u => u.Email.Equals("office1@o.o")).FirstOrDefault();
             }
 
             var groupedByDayEntries = OfficeHoursContext.LogEntries
                 .Include(le => le.User)
-                .Where(le => le.User.OfficeUserId == LoggedInUser.OfficeUserId)
+                .Where(le => le.User.OfficeUserId == useruseruser.OfficeUserId)
                 .Where(le => le.Time.Year == requestDate.Year && le.Time.Month == requestDate.Month)
                 .OrderBy(le => le.Time)
                 .GroupBy(le => le.Time.Day);
@@ -78,11 +88,13 @@ namespace OfficeHoursServer.Controllers
             if (useruseruser == null)
             {
                 var a = "nulllll";
-            }
+                
+                useruseruser = OfficeHoursContext.Users.Where(u => u.Email.Equals("office1@o.o")).FirstOrDefault();
+        }
 
             var entriesList = OfficeHoursContext.LogEntries
                 .Include(le => le.User)
-                .Where(le => le.UserId == LoggedInUser.OfficeUserId)
+                .Where(le => le.UserId == useruseruser.OfficeUserId)
                 .OrderBy(le => le.Time);      
 
             var byYear = entriesList.GroupBy(el => el.Time.Year).ToList();
@@ -114,6 +126,26 @@ namespace OfficeHoursServer.Controllers
             return everyMonth;
         }
 
+        // api/logentry/EntryLog
+        [HttpPost]
+        public LogEntryViewModel EntryLog([FromBody] int id)
+        {
+            var useruseruser = LoggedInUser;
+
+            if (useruseruser == null)
+            {
+                var a = "nulllll";
+                useruseruser = OfficeHoursContext.Users.Where(u => u.Email.Equals("office1@o.o")).FirstOrDefault();
+            }
+
+            var entry = OfficeHoursContext.LogEntries
+                .Include(le => le.User)
+                .Where(le => le.User.Email.Equals(useruseruser.Email))
+                .Where(le => le.LogEntryId == id)
+                .FirstOrDefault();
+
+            return Mapper.Map<LogEntryViewModel>(entry);
+        }
 
         // api/logentry/AddLogEntry
         [HttpPost]

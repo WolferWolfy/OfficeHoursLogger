@@ -9,6 +9,7 @@ import {HeroService}           from './heroes/hero.service';
 import {OfficeHoursService}     from './log/officehours.service';
 import {EntryListComponent}     from './log/entry-list.component';
 import {EntryDetailComponent}   from './log/entry-detail.component';
+import {DayListComponent}       from './log/day-list.component';
 import {MonthListComponent}     from './log/month-list.component';
 import {AboutComponent}         from './about.component';
 
@@ -39,6 +40,7 @@ declare var Auth0Lock;
     { path: '/hero/:id', name: 'HeroDetail', component: HeroDetailComponent },
     { path: '/disaster', name: 'Asteroid', redirectTo: ['CrisisCenter', 'CrisisDetail', { id: 3 }] },
     { path: '/months', component: MonthListComponent, name: 'Months' },
+    { path: '/days', component: DayListComponent, name: 'Days' },
     { path: '/entries', component: EntryListComponent, name: 'Entries' },
     { path: '/entry/:id', component: EntryDetailComponent, name: 'Entry' },
     { path: '/about', component: AboutComponent, name: 'About' }

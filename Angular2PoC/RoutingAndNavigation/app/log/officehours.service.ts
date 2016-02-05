@@ -4,33 +4,74 @@ import {DayModel} from './day.model';
 import {MonthModel} from './month.model';
 import {DateTimeModel} from './datetime.model';
 
-import {Http}       from 'angular2/http';
+import {Http, Headers}       from 'angular2/http';
 import {Observable} from 'rxjs/Observable';
+import {AuthHttp, AuthConfig, tokenNotExpired, JwtHelper} from 'angular2-jwt';
 
 @Injectable()
 export class OfficeHoursService {
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private authHttp: AuthHttp) { }
 
-  //  private _entriesJson = 'app/json/entries.json';
+    //  private _entriesJson = 'app/json/entries.json';
     private _entriesUrl = 'http://localhost:64485/api/test/DayLog';
 
- //   latestEntries: Observable<EntryModel[]>;
+    private serviceBaseUrl = 'http://localhost:64485/api/logentry/';
+
+    private dayLogUrl = 'daylog';
+    private monthLogUrl = 'monthlog';
+    private completeLogUrl = 'completelog';
+    private logEntryUrl = 'entrylog';
+    private addLogEntryUrl = 'addlogentry';
+    private updateLogEntryUrl = 'updatelogentry';
+    private deleteLogEntryUrl = 'deletelogentry';
+   
+
+    //   latestEntries: Observable<EntryModel[]>;
     latestEntries: EntryModel[];
+    latestDays: DayModel[];
+    latestMonths: MonthModel[];
+
+    lastRequestedDateTime: DateTimeModel;
+    lastRequestedId: number;
 
 
-    getMonths() { return monthsPromise; }
+    getMonths() {
+        var months = this.authHttp.post(this.serviceBaseUrl + this.completeLogUrl, null)
+            .map(res => <MonthModel[]>(res.json()))
+            .catch(this.logAndPassOn);
 
-    getMonth(year: number | string, month: number | string) {
-        return monthsPromise
-            .then(months => months.filter(m => m.year === year && m.month === month)[0]);
+        months.subscribe(months => this.latestMonths = months);
+
+        return months;
     }
 
-    getDays() { return daysPromise; }
+    getDays() {
 
-    getDay(year: number, month: number, day: number) {
-        return daysPromise
-            .then(days => days.filter(d => d.year === year && d.month === month && d.day === day)[0]);
+        var days = this.authHttp.post(this.serviceBaseUrl + this.monthLogUrl, "" + this.lastRequestedDateTime)
+            .map(res => <DayModel[]>(res.json()))
+            .catch(this.logAndPassOn);
+
+        days.subscribe(days => this.latestDays = days);
+
+        return days;
+    }
+
+
+    getDaysForMonth(date: DateTimeModel) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        this.lastRequestedDateTime = date;
+        var days = this.authHttp.post(this.serviceBaseUrl + this.monthLogUrl, JSON.stringify(date), {
+            headers: headers
+        })
+            .map(res => <DayModel[]>(res.json()["days"]))
+            .catch(this.logAndPassOn);
+
+        days.subscribe(days => this.latestDays = days);
+
+        return days;
     }
 
     getEntries() {
@@ -43,11 +84,20 @@ export class OfficeHoursService {
         return entries;
     }
 
+    getEntriesForDate(date: DateTimeModel) {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
 
+        this.lastRequestedDateTime = date;
+        var logEntries = this.authHttp.post(this.serviceBaseUrl + this.dayLogUrl, JSON.stringify(date), {
+            headers: headers
+        })
+            .map(res => <EntryModel[]>(res.json()["logEntries"]))
+            .catch(this.logAndPassOn);
 
-    getEntriesForDate(date: Date) {
-        // later query based on date 
-        return entriesPromise;
+        logEntries.subscribe(logEntries => this.latestEntries = logEntries);
+
+        return logEntries;
     }
 
     getEntriesForDayFromEntryId(entryId: number) {
@@ -57,35 +107,28 @@ export class OfficeHoursService {
 
 
     getEntry(id: number | string) {
-        return this.http.get(this._entriesUrl)
-            .map(res => ((<EntryModel[]>res.json()["logEntries"]).filter(e => e.logEntryId === +id))[0])
+
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        this.lastRequestedId = +id;
+        var logEntry = this.authHttp.post(this.serviceBaseUrl + this.logEntryUrl, JSON.stringify(+id), {
+            headers: headers
+        })
+            .map(res => <EntryModel>(res.json()))
             .catch(this.logAndPassOn);
+
+        return logEntry;
     }
 
-    /*
-    getEntry(id: number | string) {
-        
-        if (!this.latestEntries) {
-            return this.latestEntries.filter(e => e.logEntryId === +id)[0];
-        }
-
-       this.getEntries().subscribe(
-           entries => this.latestEntries = entries,
-           error => alert(error))            ; 
-
-        return this.latestEntries.filter(e => e.logEntryId === +id)[0];
+    getSecretThing() {
+        this.authHttp.get('http://localhost:64485/api/test/securedping')
+            .subscribe(
+            data => console.log(data.json()),
+            err => console.log(err),
+            () => console.log('Complete')
+            );
     }
-
-    */
-  /*  static nextCrisisId = 100;
-
-    addMonth(year: number, month: number) {
-        name = name.trim();
-        if (name) {
-            let crisis = new Crisis(CrisisService.nextCrisisId++, name);
-            crisesPromise.then(crises => crises.push(crisis));
-        }
-    }*/
 
     private logAndPassOn(error: Error) {
         // in a real world app, we may send the server to some remote logging infrastructure
@@ -95,6 +138,7 @@ export class OfficeHoursService {
     }
 }
 
+/*
 var months = [
     new MonthModel(2015, 11),
     new MonthModel(2015, 12),
@@ -114,6 +158,7 @@ var days = [
 ];
 
 var daysPromise = Promise.resolve(days);
+*/
 
 //new Date(year, month, day, hours, minutes, seconds)
 var entries = [
