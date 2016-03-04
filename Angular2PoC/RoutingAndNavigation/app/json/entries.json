@@ -1,0 +1,57 @@
+﻿{
+  "logEntries": [
+    {
+      "logEntryId": 1,
+      "name": "Arrive",
+      "time": {
+        "year": 2016,
+        "month": 2,
+        "day": 2,
+        "hour": 8,
+        "minute": 57,
+        "second": 0
+      },
+      "direction": 0
+    },
+    {
+      "logEntryId": 2,
+      "name": "Break start",
+      "time": {
+        "year": 2016,
+        "month": 2,
+        "day": 2,
+        "hour": 12,
+        "minute": 30,
+        "second": 0
+      },
+      "direction": 1
+    },
+    {
+      "logEntryId": 3,
+      "name": "Break end",
+      "time": {
+        "year": 2016,
+        "month": 2,
+        "day": 2,
+        "hour": 13,
+        "minute": 58,
+        "second": 0
+      },
+      "direction": 0
+    },
+    {
+      "logEntryId": 4,
+      "name": "Depart",
+      "time": {
+        "year": 2016,
+        "month": 2,
+        "day": 2,
+        "hour": 18,
+        "minute": 0,
+        "second": 0
+      },
+      "direction": 1
+    }
+  ]
+}
+

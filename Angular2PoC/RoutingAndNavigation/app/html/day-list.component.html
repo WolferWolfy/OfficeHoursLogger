@@ -1,0 +1,9 @@
+﻿<h2>DAYS LIST COMPONENT</h2>
+<span>     Day  Arrive - Leave - In office - Out of office  </span>
+<ul>
+    <li *ngFor="#day of days"
+        [class.selected]="isSelected(day)"
+        (click)="onSelect(day)">
+        <span>{{day.day.year}}.{{day.day.month}}.{{day.day.day}}</span> {{day.arrive.hour}}:{{day.arrive.minute}} - {{day.leave.hour}}:{{day.leave.minute}} -  {{day.inOffice}} - {{day.outOfOffice}}
+    </li>
+</ul>

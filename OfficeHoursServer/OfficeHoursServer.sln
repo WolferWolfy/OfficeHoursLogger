@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6EF2FB26-9C51-494C-A8E8-69FE41DDBCFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{62D48C62-9681-4B1D-8C44-A12704824B77}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "OfficeHoursServer", "src\OfficeHoursServer\OfficeHoursServer.xproj", "{60D529E7-9B5F-4932-B8DA-2229CD7B33F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60D529E7-9B5F-4932-B8DA-2229CD7B33F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60D529E7-9B5F-4932-B8DA-2229CD7B33F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60D529E7-9B5F-4932-B8DA-2229CD7B33F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60D529E7-9B5F-4932-B8DA-2229CD7B33F7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{60D529E7-9B5F-4932-B8DA-2229CD7B33F7} = {6EF2FB26-9C51-494C-A8E8-69FE41DDBCFF}
+	EndGlobalSection
+EndGlobal
