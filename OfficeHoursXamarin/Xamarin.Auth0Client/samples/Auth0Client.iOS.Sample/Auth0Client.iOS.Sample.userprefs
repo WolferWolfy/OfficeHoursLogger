@@ -1,0 +1,13 @@
+﻿<Properties StartupItem="Auth0Client.iOS.Sample.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone6s.9.2" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Auth0Client_iOS_SampleViewController.cs">
+    <Files>
+      <File FileName="Auth0Client_iOS_SampleViewController.cs" Line="15" Column="2" />
+      <File FileName="Auth0Client_iOS_SampleViewController.designer.cs" Line="8" Column="12" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

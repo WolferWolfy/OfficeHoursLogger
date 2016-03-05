@@ -1,0 +1,14 @@
+﻿<Properties StartupItem="src/Auth0Client.iOS/Auth0Client.iOS.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.Márton iPhone készüléke" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="src/Auth0Client/Auth0Client.cs">
+    <Files>
+      <File FileName="src/Auth0Client/Auth0Constants.cs" Line="8" Column="7" />
+      <File FileName="../../../Library/Frameworks/Xamarin.Android.framework/Versions/6.0.1-10/lib/xbuild/Xamarin/Android/Xamarin.Android.Common.targets" Line="1" Column="1" />
+      <File FileName="src/Auth0Client/Auth0Client.cs" Line="50" Column="29" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -1,11 +1,8 @@
 OfficeHoursServer/.vs/
+bin/
 node_modules/
 Angular2PoC/Auth0PoC/.vs/
 Angular2PoC/RoutingAndNavigation/app/build/
-OfficeHoursXamarin/OfficeHours/Droid/obj/Debug
-OfficeHoursXamarin/OfficeHours/packages
-OfficeHoursXamarin/OfficeHours/Droid/bin
-OfficeHoursXamarin/OfficeHours/iOS/bin
-OfficeHoursXamarin/OfficeHours/iOS/obj
-OfficeHoursXamarin/OfficeHours/OfficeHours/bin
-OfficeHoursXamarin/OfficeHours/OfficeHours/obj
+packages/
+obj/
+Components/
