@@ -28,17 +28,17 @@ namespace Auth0Client.iOS.Sample
 
 		private void Initialize()
 		{
-			var loginWithWidgetBtn = new StyledStringElement ("Login with Widget", this.LoginWithWidgetButtonClick) {
+		/*	var loginWithWidgetBtn = new StyledStringElement ("Login with Widget", this.LoginWithWidgetButtonClick) {
 				Alignment = UITextAlignment.Center
-			};
+			};*/
 
 			var loginWithWidgetAndRefreshTokenBtn = new StyledStringElement ("Login with Widget & refresh_token", this.LoginWithWidgetUsingRefreshTokenButtonClick) {
 				Alignment = UITextAlignment.Center
 			};
 
-			var loginWithConnectionBtn = new StyledStringElement ("Login with Google", this.LoginWithConnectionButtonClick) {
+			/*var loginWithConnectionBtn = new StyledStringElement ("Login with Google", this.LoginWithConnectionButtonClick) {
 				Alignment = UITextAlignment.Center
-			};
+			};*/
 
 			var refreshJwtWithIdTokenBtn = new StyledStringElement ("Get new ID using id_token", this.RefreshIdTokenWithIdToken) {
 				Alignment = UITextAlignment.Center
@@ -55,9 +55,9 @@ namespace Auth0Client.iOS.Sample
 			this.resultElement = new StyledMultilineElement (string.Empty, string.Empty, UITableViewCellStyle.Subtitle);
 
 			var login1 = new Section ("Login");
-			login1.Add (loginWithWidgetBtn);
+			//login1.Add (loginWithWidgetBtn);
 			login1.Add (loginWithWidgetAndRefreshTokenBtn);
-			login1.Add (loginWithConnectionBtn);
+			//login1.Add (loginWithConnectionBtn);
 
 			var login2 = new Section ("Login with user/password");
 			login2.Add (this.userNameElement = new EntryElement ("User", string.Empty, string.Empty));
@@ -68,10 +68,19 @@ namespace Auth0Client.iOS.Sample
 			refresh.Add (refreshJwtWithIdTokenBtn);
 			refresh.Add (refreshJwtWithRefreshTokenBtn);
 
+			var miscSection = new Section ("Lunaversum related");
+
+			var toplistBtn = new StyledStringElement ("Toplist") {
+				Alignment = UITextAlignment.Center
+			};
+
+			miscSection.Add (toplistBtn);
+
 			var result = new Section ("Result");
 			result.Add(this.resultElement);
 
-			this.Root.Add (new Section[] { login1, login2, refresh, result });
+
+			this.Root.Add (new Section[] { login1, login2, refresh, miscSection, result });
 		}
 
 	}

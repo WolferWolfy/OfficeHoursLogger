@@ -2,6 +2,8 @@ using System;
 using System.Threading.Tasks;
 using Auth0.SDK;
 using MonoTouch.Dialog;
+using OfficeHours;
+using Xamarin.Forms;
 
 #if __UNIFIED__
 using Foundation;
@@ -41,6 +43,13 @@ namespace Auth0Client.iOS.Sample
 			
 			// Perform any additional setup after loading the view, typically from a nib.
 			this.Initialize ();
+		}
+
+		public void NavigateToForms() 
+		{
+			var secondViewController = App.GetSecondPage ().CreateViewController ();
+				//NavigationController.PushViewController(secondViewController, true);
+				NavigationController.PresentViewController (secondViewController, true, null);
 		}
 
 		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
@@ -98,6 +107,7 @@ namespace Auth0Client.iOS.Sample
 				// This will show all connections enabled in Auth0, and let the user choose the identity provider
 				var user = await this.client.LoginAsync (this, withRefreshToken: true);
 				this.ShowResult(user);
+				this.NavigateToForms();
 			}
 			catch (AggregateException e)
 			{

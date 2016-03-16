@@ -1,8 +1,12 @@
 ﻿<Properties StartupItem="iOS/OfficeHours.iOS.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../Xamarin.Auth0Client/samples/Auth0Client.iOS.Sample/AppDelegate.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../xamarin-forms-samples/Native2Forms/Native2Forms.iOS/AppDelegate.cs">
     <Files>
       <File FileName="../Xamarin.Auth0Client/samples/Auth0Client.iOS.Sample/AppDelegate.cs" Line="1" Column="1" />
+      <File FileName="iOS/Auth0/Auth0Client_iOS_SampleViewController.cs" Line="1" Column="1" />
+      <File FileName="../Xamarin.Auth0Client/src/Auth0Client/Auth0Client.cs" Line="1" Column="1" />
+      <File FileName="iOS/AppDelegate.cs" Line="1" Column="1" />
+      <File FileName="../../../xamarin-forms-samples/Native2Forms/Native2Forms.iOS/AppDelegate.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
