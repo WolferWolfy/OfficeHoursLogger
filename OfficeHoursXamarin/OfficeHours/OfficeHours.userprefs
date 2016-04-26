@@ -1,19 +1,25 @@
 ﻿<Properties StartupItem="iOS/OfficeHours.iOS.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../../xamarin-forms-samples/Native2Forms/Native2Forms.iOS/AppDelegate.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone6s.9.3" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../Xamarin.Auth0Client/src/Auth0Client/Auth0Client.cs">
     <Files>
-      <File FileName="../Xamarin.Auth0Client/samples/Auth0Client.iOS.Sample/AppDelegate.cs" Line="1" Column="1" />
-      <File FileName="iOS/Auth0/Auth0Client_iOS_SampleViewController.cs" Line="1" Column="1" />
-      <File FileName="../Xamarin.Auth0Client/src/Auth0Client/Auth0Client.cs" Line="1" Column="1" />
-      <File FileName="iOS/AppDelegate.cs" Line="1" Column="1" />
-      <File FileName="../../../xamarin-forms-samples/Native2Forms/Native2Forms.iOS/AppDelegate.cs" Line="1" Column="1" />
+      <File FileName="../../../Projects/CloudCakesA0/CloudCakesA0/HomePage.cs" Line="1" Column="1" />
+      <File FileName="../../../Projects/CloudCakesA0/CloudCakesA0/OrdersPage.cs" Line="1" Column="1" />
+      <File FileName="../../../Projects/CloudCakesA0/CloudCakesA0/SignupPage.cs" Line="1" Column="1" />
+      <File FileName="../../../Projects/CloudCakesA0/CloudCakesA0/Auth0Provider.cs" Line="133" Column="33" />
+      <File FileName="OfficeHours/OfficeHours.cs" Line="25" Column="28" />
+      <File FileName="iOS/AppDelegate.cs" Line="33" Column="53" />
+      <File FileName="iOS/Auth0/Auth0Client_iOS_SampleViewController.cs" Line="90" Column="23" />
+      <File FileName="iOS/Auth0/LoadingOverlay.cs" Line="22" Column="3" />
+      <File FileName="iOS/Auth0/Auth0Client_iOS_SampleViewController.designer.cs" Line="51" Column="63" />
+      <File FileName="../Xamarin.Auth0Client/src/Auth0Client/Auth0Client.cs" Line="158" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/Marton_Imre_Farkas/Xamarin.Auth0Client/samples/Auth0Client.iOS.Sample/Auth0Client_iOS_SampleViewController.cs" line="102" column="1" />
-      <Breakpoint file="/Users/Marton_Imre_Farkas/Xamarin.Auth0Client/samples/Auth0Client.iOS.Sample/Auth0Client_iOS_SampleViewController.cs" line="138" column="1" />
-      <Breakpoint file="/Users/Marton_Imre_Farkas/Xamarin.Auth0Client/samples/Auth0Client.iOS.Sample/Auth0Client_iOS_SampleViewController.cs" line="162" column="1" />
+      <Breakpoint file="/Users/Marton_Imre_Farkas/Projects/CloudCakesA0/CloudCakesA0/HomePage.cs" line="152" column="1" />
+      <Breakpoint file="/Users/Marton_Imre_Farkas/Projects/CloudCakesA0/CloudCakesA0/TokenValidator.cs" line="40" column="1" />
+      <Breakpoint file="/Users/Marton_Imre_Farkas/Projects/CloudCakesA0/CloudCakesA0/Auth0Provider.cs" line="105" column="1" />
+      <Breakpoint file="/Users/Marton_Imre_Farkas/Projects/CloudCakesA0/CloudCakesA0/Auth0Provider.cs" line="96" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

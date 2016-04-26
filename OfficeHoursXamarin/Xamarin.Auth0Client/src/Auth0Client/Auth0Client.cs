@@ -50,7 +50,7 @@ namespace Auth0.SDK
 		public Task<Auth0User> LoginAsync(string connection, 
 			string userName, 
 			string password, 
-			bool withRefreshToken = false,
+			bool withRefreshToken = true,
 			string scope = "openid")
 		{
 
