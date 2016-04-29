@@ -195,8 +195,6 @@ namespace OfficeHoursShared
 	}
 
 	public class UserSignup {
-		public string UserId { get; set; }
-		public bool IsEmailVerified { get; set; }
 		public string Email { get; set; }
 	}
 }
