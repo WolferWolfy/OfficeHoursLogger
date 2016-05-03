@@ -10,7 +10,6 @@ namespace OfficeHoursShared
 {
 	public partial class SummaryPage : ContentPage
 	{
-		ObservableCollection<Employee> employees = new ObservableCollection<Employee>();
 
 		public SummaryPage ()
 		{
@@ -22,15 +21,8 @@ namespace OfficeHoursShared
 			// if moved to OfficeHoursShared.iOS/Resources:
 			// BarChart.Source = ImageSource.FromFile("temp_bar_chart.png");
 
-			EmployeeView.ItemsSource = employees;
-
-			employees.Add(new Employee{ DisplayName="Rob Finnerty"});
-			employees.Add(new Employee{ DisplayName="Bill Wrestler"});
-			employees.Add(new Employee{ DisplayName="Dr. Geri-Beth Hooper"});
-			employees.Add(new Employee{ DisplayName="Dr. Keith Joyce-Purdy"});
-			employees.Add(new Employee{ DisplayName="Sheri Spruce"});
-			employees.Add(new Employee{ DisplayName="Burt Indybrick"});
-	
+			DataProvider dataProvider = new DataProvider ();
+			MonthsListView.ItemsSource = dataProvider.GetMonths ();	
 		}
 
 
@@ -49,11 +41,11 @@ namespace OfficeHoursShared
 				return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
 			}
 			//DisplayAlert ("Item Selected", ((Employee) e.SelectedItem).DisplayName, "Ok");
-			//((ListView)sender).SelectedItem = null; //uncomment line if you want to disable the visual selection state.
+			((ListView)sender).SelectedItem = null; //uncomment line if you want to disable the visual selection state.
 
-			Employee selected = (Employee) e.SelectedItem;
+			MonthViewModel selected = (MonthViewModel) e.SelectedItem;
 
-			Navigation.PushAsync(new MonthPage(selected.DisplayName));
+			Navigation.PushAsync(new MonthPage(selected.Month));
 		}
 
 		private ImageSource PlatformImageResource(string resource)
@@ -62,9 +54,6 @@ namespace OfficeHoursShared
 			return ImageSource.FromResource(BaseResource + "." + resource);
 		}
 	}
-
-	public class Employee{
-		public string DisplayName {get; set;}
-	}
+		
 }
 

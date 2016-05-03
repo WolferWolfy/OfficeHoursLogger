@@ -6,11 +6,11 @@
 	    <Label>text</Label>
 	    <Image x:Name="BarChart" HorizontalOptions="Fill" HeightRequest="200"/>
 
-		<ListView x:Name="EmployeeView" 
+		<ListView x:Name="MonthsListView" 
 			ItemSelected="OnSelection">
 		    <ListView.ItemTemplate>
 		      <DataTemplate>
-		        <TextCell Text="{Binding DisplayName}" />
+		        <TextCell Text="{Binding Month.DateTime, StringFormat='{0:yyyy - MMMM}'}" Detail="{Binding Days.Count, StringFormat='Days logged: {0}'}" />
 		      </DataTemplate>
 		    </ListView.ItemTemplate>
 		  </ListView>

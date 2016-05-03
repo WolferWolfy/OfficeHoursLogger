@@ -5,7 +5,7 @@
 			ItemSelected="OnSelection">
 		    <ListView.ItemTemplate>
 		      <DataTemplate>
-		        <TextCell Text="{Binding}" />
+		        <TextCell Text="{Binding Day.DateTime, StringFormat='{0:yyyy/MM/dd}'}" Detail="{Binding InOffice, StringFormat='In Office: {0}'}" />
 		      </DataTemplate>
 		    </ListView.ItemTemplate>
 		</ListView>
