@@ -27,7 +27,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)BusinessViews\SummaryPage.xaml.cs">
       <DependentUpon>SummaryPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DataProvider\DataProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BusinessClasses\DataModel\ActionDirection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BusinessClasses\DataModel\DayType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BusinessClasses\DataModel\LogEntry.cs" />
@@ -37,16 +36,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)BusinessClasses\ViewModels\LogEntryViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BusinessClasses\ViewModels\MonthViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BusinessClasses\ViewModels\OfficeUserViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataProvider\SampleData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repository\IOfficeHoursRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repository\MockRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repository\RepositoryManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repository\SampleData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Auth0\" />
     <Folder Include="$(MSBuildThisFileDirectory)Images\" />
     <Folder Include="$(MSBuildThisFileDirectory)BusinessViews\" />
-    <Folder Include="$(MSBuildThisFileDirectory)DataProvider\" />
     <Folder Include="$(MSBuildThisFileDirectory)BusinessClasses\" />
     <Folder Include="$(MSBuildThisFileDirectory)BusinessClasses\ViewModels\" />
     <Folder Include="$(MSBuildThisFileDirectory)BusinessClasses\DataModel\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Repository\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)temp_bar_chart.png" />

@@ -8,18 +8,15 @@ namespace OfficeHoursShared
 {
 	public partial class MonthPage : ContentPage
 	{
-		public MonthPage ()
-		{
-			InitializeComponent ();
-		}
+
+	    IOfficeHoursRepository OfficeHoursRepository;
 
 		public MonthPage (DateTimeViewModel dateTimeVM)
 		{
 			InitializeComponent ();
-
+			OfficeHoursRepository = RepositoryManager.Repository;
 			Title = dateTimeVM.DateTime.ToString("yyyy - MMMM");
-			DataProvider dataProvider = new DataProvider ();
-			MonthViewModel aMonth = dataProvider.GetMonths().Where(m => m.Month.Year == dateTimeVM.Year && m.Month.Month == dateTimeVM.Month).FirstOrDefault();
+			MonthViewModel aMonth = OfficeHoursRepository.FindAllMonth().Where(m => m.Month.Year == dateTimeVM.Year && m.Month.Month == dateTimeVM.Month).FirstOrDefault();
 			MonthView.ItemsSource = aMonth.Days;
 		}
 

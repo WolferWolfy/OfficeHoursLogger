@@ -10,7 +10,7 @@
 
 	 <StackLayout Orientation="Horizontal">
 	 	<Label HorizontalOptions="Start" Text="Name: " WidthRequest="100"/>
-  		<Entry x:Name="NameEntry" HorizontalOptions="FillAndExpand" Text="{Binding Name}"/>
+  		<Entry HorizontalOptions="FillAndExpand" Text="{Binding Name}"/>
 	 </StackLayout>
 
 	 <StackLayout Orientation="Horizontal">
@@ -20,7 +20,7 @@
 
 	 <StackLayout Orientation="Horizontal">
 	 	<Label HorizontalOptions="Start" Text="Time: "   WidthRequest="100"/>
-	 	<TimePicker x:Name="TimePicker" HorizontalOptions="FillAndExpand" Time ="{Binding Time}"/> 
+	 	<TimePicker HorizontalOptions="FillAndExpand" Time ="{Binding Time}"/> 
 	 </StackLayout>
 
 </StackLayout>

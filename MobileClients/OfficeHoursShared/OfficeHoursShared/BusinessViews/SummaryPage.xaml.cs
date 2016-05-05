@@ -10,6 +10,7 @@ namespace OfficeHoursShared
 {
 	public partial class SummaryPage : ContentPage
 	{
+		IOfficeHoursRepository OfficeHoursRepository;
 
 		public SummaryPage ()
 		{
@@ -21,8 +22,11 @@ namespace OfficeHoursShared
 			// if moved to OfficeHoursShared.iOS/Resources:
 			// BarChart.Source = ImageSource.FromFile("temp_bar_chart.png");
 
-			DataProvider dataProvider = new DataProvider ();
-			MonthsListView.ItemsSource = dataProvider.GetMonths ();	
+			RepositoryManager.CreateRepository (RepositoryType.Mock, "user1");
+
+			OfficeHoursRepository = RepositoryManager.Repository;
+
+			MonthsListView.ItemsSource = OfficeHoursRepository.FindAllMonth ();
 		}
 
 

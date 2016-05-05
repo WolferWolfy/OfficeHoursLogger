@@ -66,19 +66,11 @@ namespace OfficeHoursShared
 				var np = new NavigationPage(new SummaryPage ());
 				Navigation.PushModalAsync(np);
 			};
-
-
-			var month = new Button {
-				Text = "Month"
-			};
-			month.Clicked += (sender, e) => {
-				Navigation.PushAsync(new MonthPage());
-			};
-
+				
 			Content = new StackLayout {
 				Padding = 30,
 				Spacing = 10,
-				Children = { title, email, password, login, signupButton, aboutButton, month}
+				Children = { title, email, password, login, signupButton, aboutButton}
 			};
 		}
 	}
