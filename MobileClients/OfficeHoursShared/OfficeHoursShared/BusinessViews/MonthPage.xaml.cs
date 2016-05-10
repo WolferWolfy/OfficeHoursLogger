@@ -10,15 +10,24 @@ namespace OfficeHoursShared
 	{
 
 	    IOfficeHoursRepository OfficeHoursRepository;
+		MonthViewModel month;
+
+		DateTimeViewModel dateTime;
 
 		public MonthPage (DateTimeViewModel dateTimeVM)
 		{
 			InitializeComponent ();
 			OfficeHoursRepository = RepositoryManager.Repository;
 			Title = dateTimeVM.DateTime.ToString("yyyy - MMMM");
-			MonthViewModel aMonth = OfficeHoursRepository.FindAllMonth().Where(m => m.Month.Year == dateTimeVM.Year && m.Month.Month == dateTimeVM.Month).FirstOrDefault();
-			MonthView.ItemsSource = aMonth.Days;
+			dateTime = dateTimeVM;
 		}
+
+		protected override void OnAppearing ()
+		{
+			month = OfficeHoursRepository.FindAllMonth().Where(m => m.Month.Year == dateTime.Year && m.Month.Month == dateTime.Month).FirstOrDefault();
+			MonthView.ItemsSource = month.Days;
+		}
+
 
 		void OnSelection (object sender, SelectedItemChangedEventArgs e)
 		{

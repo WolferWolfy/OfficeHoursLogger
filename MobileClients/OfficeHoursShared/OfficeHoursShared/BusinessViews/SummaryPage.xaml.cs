@@ -5,12 +5,14 @@ using Xamarin.Forms;
 using System.Reflection;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace OfficeHoursShared
 {
 	public partial class SummaryPage : ContentPage
 	{
 		IOfficeHoursRepository OfficeHoursRepository;
+		OfficeUserViewModel OfficeUserVM;
 
 		public SummaryPage ()
 		{
@@ -26,7 +28,7 @@ namespace OfficeHoursShared
 
 			OfficeHoursRepository = RepositoryManager.Repository;
 
-			MonthsListView.ItemsSource = OfficeHoursRepository.FindAllMonth ();
+			OfficeUserVM = new OfficeUserViewModel();
 		}
 
 
@@ -37,6 +39,13 @@ namespace OfficeHoursShared
 			{
 				return _baseResource ?? (_baseResource = Assembly.GetExecutingAssembly ().FullName.Split (',').FirstOrDefault ());
 			}
+		}
+
+		protected override void OnAppearing ()
+		{
+			OfficeUserVM.Months = OfficeHoursRepository.FindAllMonth ();
+
+			MonthsListView.ItemsSource = OfficeUserVM.Months;
 		}
 
 		void OnSelection (object sender, SelectedItemChangedEventArgs e)
@@ -57,6 +66,16 @@ namespace OfficeHoursShared
 			var br = BaseResource;
 			return ImageSource.FromResource(BaseResource + "." + resource);
 		}
+
+		private void NewEntryScenario(object sender, EventArgs eventArgs)
+		{
+			DateTime now = DateTime.Now; 
+			LogEntryViewModel newEntry = new LogEntryViewModel () {
+				Time = new DateTimeViewModel (now.Year, now.Month, now.Day, now.Hour, now.Minute, 0)
+			};
+			Navigation.PushAsync (new EntryPage (newEntry, true));
+		}
+
 	}
 		
 }

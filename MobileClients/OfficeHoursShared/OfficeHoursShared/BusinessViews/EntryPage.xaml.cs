@@ -10,6 +10,8 @@ namespace OfficeHoursShared
 	{
 		IOfficeHoursRepository OfficeHoursRepository;
 
+		bool newEntryScenario;
+
 		public string Name { get; set; }
 		public ActionDirection Direction { get; set; }
 		public TimeSpan Time { get; set; }
@@ -18,26 +20,28 @@ namespace OfficeHoursShared
 
 		public LogEntryViewModel LogEntry { get; set; }
 
-		public EntryPage (LogEntryViewModel logEntryVM)
+		public EntryPage (LogEntryViewModel logEntryVM, bool isNewEntry)
 		{
 			
 			OfficeHoursRepository = RepositoryManager.Repository;
 
 			BindingContext = this;
 
-			if (logEntryVM == null) {
-				Name = "Default name";
+			LogEntry = logEntryVM;
+
+			if (isNewEntry == true) {
+				Name = logEntryVM.Name;
 				Direction = ActionDirection.Entry;
 				Time = DateTime.Now.TimeOfDay;
 
-				LogEntry = new LogEntryViewModel ();
+				newEntryScenario = true;
 
 			} else {
 				Name = logEntryVM.Name;
 				Direction = logEntryVM.Direction;
 				Time = logEntryVM.Time.DateTime.TimeOfDay;
 
-				LogEntry = logEntryVM;
+				newEntryScenario = false;
 			}
 
 			InitializeComponent ();	
@@ -63,6 +67,7 @@ namespace OfficeHoursShared
 
 		}
 
+	
 		private void OnSelectedIndexChanged(object sender, EventArgs eventArgs)
 		{
 			Direction = DirectionList [((Picker)sender).SelectedIndex];
@@ -81,18 +86,18 @@ namespace OfficeHoursShared
 				dirty = true;
 			}
 				
-			if (LogEntry.Time.Hour != Time.Hours || LogEntry.Time.Minute != Time.Minutes || LogEntry.Time.Second != Time.Seconds) {
+			if (LogEntry.Time.Hour != Time.Hours || LogEntry.Time.Minute != Time.Minutes) {
 				LogEntry.Time.Hour = Time.Hours;
 				LogEntry.Time.Minute = Time.Minutes;
-				LogEntry.Time.Second = Time.Seconds;
+				LogEntry.Time.Second = 0;
 				dirty = true;
 			}
 
 
-
-			//DisplayAlert ("Saved!", "Changes to entry are saved.","ok", "still ok");
-			//DisplayActionSheet
-			if (dirty) {
+			if (newEntryScenario) {
+				OfficeHoursRepository.AddEntry (LogEntry);
+			}
+			else if (dirty) {
 				OfficeHoursRepository.UpdateEntry (LogEntry);
 			}
 

@@ -1,18 +1,16 @@
 ﻿<Properties StartupItem="iOS/OfficeHoursShared.iOS.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone6s.9.3" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="OfficeHoursShared/BusinessClasses/ViewModels/DateTimeViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="OfficeHoursShared/Repository/MockRepository.cs">
     <Files>
-      <File FileName="OfficeHoursShared/DataProvider/DataProvider.cs" Line="15" Column="35" />
-      <File FileName="OfficeHoursShared/BusinessViews/MonthPage.xaml" Line="8" Column="53" />
-      <File FileName="OfficeHoursShared/BusinessViews/MonthPage.xaml.cs" Line="24" Column="49" />
-      <File FileName="OfficeHoursShared/BusinessClasses/ViewModels/MonthViewModel.cs" Line="8" Column="6" />
-      <File FileName="OfficeHoursShared/BusinessClasses/ViewModels/DateTimeViewModel.cs" Line="18" Column="27" />
+      <File FileName="OfficeHoursShared/BusinessViews/SummaryPage.xaml" Line="4" Column="69" />
+      <File FileName="OfficeHoursShared/BusinessViews/SummaryPage.xaml.cs" Line="46" Column="50" />
+      <File FileName="OfficeHoursShared/BusinessViews/DayPage.xaml.cs" Line="43" Column="1" />
+      <File FileName="OfficeHoursShared/Repository/MockRepository.cs" Line="70" Column="62" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/Marton_Imre_Farkas/OfficeHoursLogger/MobileClients/OfficeHoursShared/OfficeHoursShared/Auth0/Auth0Provider.cs" line="96" column="1" />
-      <Breakpoint file="/Users/Marton_Imre_Farkas/OfficeHoursLogger/MobileClients/OfficeHoursShared/OfficeHoursShared/BusinessViews/MonthPage.xaml.cs" line="25" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

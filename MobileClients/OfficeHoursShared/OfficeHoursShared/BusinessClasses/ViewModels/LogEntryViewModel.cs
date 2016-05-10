@@ -11,5 +11,9 @@ namespace OfficeHoursShared
         public ActionDirection Direction { get; set; }
         public string Name { get; set; }
 
+		public LogEntryViewModel ()
+		{
+			Time = new DateTimeViewModel ();
+		}
     }
 }

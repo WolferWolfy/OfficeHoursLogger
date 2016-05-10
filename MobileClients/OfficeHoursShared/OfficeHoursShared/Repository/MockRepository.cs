@@ -47,6 +47,11 @@ namespace OfficeHoursShared
 
 		public void AddEntry (LogEntryViewModel logEntry)
 		{
+			int lastId = sampleData.User1Entries.Max (e => e.LogEntryId);
+			if (logEntry.LogEntryId == 0) {
+				logEntry.LogEntryId = lastId + 1;
+			}
+
 			sampleData.User1Entries.Add (logEntry);
 
 			return;

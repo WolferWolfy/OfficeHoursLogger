@@ -242,7 +242,8 @@ namespace OfficeHoursShared
 					theDayVM.LogEntries.Add(logEntry);
 				}
 
-				//  theDayVM.LogEntries = theDayVM.LogEntries.OrderBy(le => le.Time);
+				theDayVM.LogEntries = theDayVM.LogEntries.OrderBy (le => le.Time).ToList ();
+				//theDayVM.LogEntries = theDayVM.LogEntries.OrderBy(le => le.Time);
 				monthVM.Days.Add(theDayVM);
 			}
 
