@@ -29,6 +29,7 @@ namespace OfficeHoursShared
 
 			LogEntry = logEntryVM;
 
+
 			if (isNewEntry == true) {
 				Name = logEntryVM.Name;
 				Direction = ActionDirection.Entry;
@@ -45,6 +46,9 @@ namespace OfficeHoursShared
 			}
 
 			InitializeComponent ();	
+
+			EntryDatePicker.Date = logEntryVM.Time.DateTime;
+			EntryDatePicker.IsEnabled = isNewEntry;
 
 			UpdatePickerColor ();
 
@@ -96,6 +100,13 @@ namespace OfficeHoursShared
 				LogEntry.Time.Hour = Time.Hours;
 				LogEntry.Time.Minute = Time.Minutes;
 				LogEntry.Time.Second = 0;
+				dirty = true;
+			}
+
+			if (LogEntry.Time.Year != EntryDatePicker.Date.Year || LogEntry.Time.Month != EntryDatePicker.Date.Month || LogEntry.Time.Day != EntryDatePicker.Date.Day) {
+				LogEntry.Time.Year = EntryDatePicker.Date.Year;
+				LogEntry.Time.Month = EntryDatePicker.Date.Month;
+				LogEntry.Time.Day = EntryDatePicker.Date.Day;
 				dirty = true;
 			}
 

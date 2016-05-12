@@ -34,6 +34,10 @@
 	 	<TimePicker HorizontalOptions="FillAndExpand" Time ="{Binding Time}"/> 
 	 </StackLayout>
 
+	 <StackLayout Orientation="Horizontal">
+	 	<Label HorizontalOptions="Start" Text="Date: "   WidthRequest="100"/>
+	 	<DatePicker x:Name="EntryDatePicker" HorizontalOptions="FillAndExpand" Date ="{Binding Time}"/> 
+	 </StackLayout>
 </StackLayout>
 
 
