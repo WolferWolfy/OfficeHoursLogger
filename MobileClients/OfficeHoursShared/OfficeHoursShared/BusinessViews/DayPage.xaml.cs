@@ -13,11 +13,12 @@ namespace OfficeHoursShared
 
 		public DayPage (DayViewModel dayVM)
 		{
+			day = dayVM;
 			InitializeComponent ();
 
 			Title = dayVM.Day.DateTime.ToString("yyyy/MM/dd");
 		//	DayView.ItemsSource = dayVM.LogEntries ;
-			day = dayVM;
+			//day = dayVM;
 			//update on view appear. or binding for propertychanged?
 
 			OfficeHoursRepository = RepositoryManager.Repository;

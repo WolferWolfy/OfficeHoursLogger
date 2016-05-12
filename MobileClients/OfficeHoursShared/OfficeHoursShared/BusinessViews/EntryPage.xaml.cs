@@ -46,7 +46,8 @@ namespace OfficeHoursShared
 
 			InitializeComponent ();	
 
-	
+			UpdatePickerColor ();
+
 			int index = 0;
 			foreach (var value in Enum.GetValues(typeof(ActionDirection)))
 			{
@@ -71,6 +72,11 @@ namespace OfficeHoursShared
 		private void OnSelectedIndexChanged(object sender, EventArgs eventArgs)
 		{
 			Direction = DirectionList [((Picker)sender).SelectedIndex];
+			UpdatePickerColor ();
+		}
+
+		private void UpdatePickerColor() {
+			DirectionPicker.BackgroundColor = (Direction == ActionDirection.Entry ? Color.Teal : Color.Maroon).MultiplyAlpha(0.44);
 		}
 
 		private void SaveChanges() {

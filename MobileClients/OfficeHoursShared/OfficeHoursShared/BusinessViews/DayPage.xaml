@@ -3,12 +3,59 @@
  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
  x:Class="OfficeHoursShared.DayPage">
 
+  <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="MyLabelStyle" TargetType="Label">
+                <Style.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Direction}" Value="Entry" >
+                        <Setter Property="TextColor" Value="Teal" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding Direction}" Value="Exit" >
+                        <Setter Property="TextColor" Value="Maroon" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MyTextCellStyle" TargetType="TextCell">
+                <Style.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding Path=Direction}" Value="Entry">
+                    	<Setter Property="TextColor" Value="Green"/>
+                	</DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="MyStackLayoutStyle" TargetType="StackLayout">
+                <Style.Triggers>
+                    <DataTrigger TargetType="StackLayout" Binding="{Binding Direction}" Value="Entry" >
+                        <Setter Property="BackgroundColor" Value="#85C4" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="StackLayout" Binding="{Binding Direction}" Value="Exit" >
+                        <Setter Property="BackgroundColor" Value="#8E52" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
 	<ContentPage.Content>
 		<ListView x:Name="DayView" 
 			ItemSelected="OnSelection">
 		    <ListView.ItemTemplate>
 		      <DataTemplate>
+
+		      	<!--
 		    	<TextCell Text = "{Binding Name}" Detail="{Binding Time.DateTime}" TextColor ="Blue">
+
+
+		    	<TextCell.Triggers>
+                	<DataTrigger TargetType="TextCell" Binding="{Binding Path=Name}" Value="Arrive">
+                        	<Setter Property="DetailColor" Value="Green"/>
+                	</DataTrigger>
+                	<DataTrigger TargetType="TextCell" Binding="{Binding Path=Name}" Value="Exit">
+                        	<Setter Property="DetailColor" Value="Red"/>
+                	</DataTrigger>
+       			</TextCell.Triggers>
 
          			<TextCell.ContextActions>
             			<MenuItem Clicked="OnMore" CommandParameter="{Binding .}"
@@ -17,6 +64,27 @@
             	 		Text="Delete" IsDestructive="True" />
          			</TextCell.ContextActions>
       			</TextCell>
+      			-->
+
+				<ViewCell>
+				<StackLayout Orientation="Horizontal" Padding="5, 10, 15, 20" 
+					HorizontalOptions="Fill" VerticalOptions="Fill">
+				 	<!--Style="{StaticResource MyStackLayoutStyle}"-->
+
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding Name}"
+                                	Style="{StaticResource MyLabelStyle}"
+                                	 />
+                                <Label Text="{Binding Time.DateTime, StringFormat='{0:HH:mm:ss}'}"
+                                HorizontalOptions="EndAndExpand"
+                                FontSize="Small"
+                                />
+                            </StackLayout>
+                        </StackLayout>
+
+
+                </ViewCell>
+               
 		      </DataTemplate>
 		    </ListView.ItemTemplate>
 		</ListView>
