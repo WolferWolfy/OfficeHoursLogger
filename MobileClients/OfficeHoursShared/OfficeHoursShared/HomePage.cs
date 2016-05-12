@@ -58,9 +58,8 @@ namespace OfficeHoursShared
 
 				var user = Auth0Provider.Instance.Login (email.Text, password.Text);
 
-
-				Application.Current.Properties ["auth0User"] = user;
-			//	Navigation.PushModalAsync (new OrdersPage ());
+				PersistenceManager pm = new PersistenceManager();
+				pm.SaveUserData(user);
 
 
 				var np = new NavigationPage(new SummaryPage ());

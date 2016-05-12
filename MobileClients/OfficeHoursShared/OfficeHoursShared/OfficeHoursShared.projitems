@@ -41,6 +41,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Repository\RepositoryManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Repository\SampleData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ActionDirectionToColorConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Persistence\PersistenceManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Auth0\" />
@@ -51,6 +52,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)BusinessClasses\DataModel\" />
     <Folder Include="$(MSBuildThisFileDirectory)Repository\" />
     <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Persistence\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)temp_bar_chart.png" />

@@ -17,6 +17,11 @@ namespace OfficeHoursShared
 		private string Connection { get; set; }
 		private string Device { get; set; }
 
+		public Auth0User User {
+			get;
+			private set;
+		}
+
 		public static Auth0Provider Instance
 		{
 			get 
@@ -62,7 +67,8 @@ namespace OfficeHoursShared
 				//	Application.Current.Properties ["id_token"] = token.id_token;
 				//	Application.Current.Properties ["access_token"] = token.access_token;
 				//	Application.Current.Properties ["refresh_token"] = token.refresh_token;
-				return GetUserData (token);
+				User = GetUserData (token);
+				return User;
 			} else {
 				return null;
 				//DisplayAlert ("Oh No!", "It's seems that you have entered an incorrect email or password. Please try again.", "OK");
@@ -122,10 +128,11 @@ namespace OfficeHoursShared
 			// Finally, we navigate the user the the Orders page
 			//Navigation.PushModalAsync (new OrdersPage ());
 
+			User = user;
 			return user;
 		}
 
-		public LoginToken GetNewToken(LoginToken loginToken) {
+		private LoginToken GetNewToken(LoginToken loginToken) {
 
 			var client = new RestClient(Domain);
 			var request = new RestRequest("delegation", Method.POST);
