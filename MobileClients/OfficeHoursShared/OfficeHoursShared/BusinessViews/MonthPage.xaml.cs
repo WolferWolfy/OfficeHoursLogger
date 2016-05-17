@@ -26,6 +26,10 @@ namespace OfficeHoursShared
 		{
 			month = OfficeHoursRepository.FindAllMonth().Where(m => m.Month.Year == dateTime.Year && m.Month.Month == dateTime.Month).FirstOrDefault();
 			MonthView.ItemsSource = month.Days;
+
+			AverageInLabel.Text = month.AverageIn.ToString();
+			AverageOutLabel.Text = month.AverageOut.ToString();
+			LoggedDaysLabel.Text = month.Days.Count.ToString();
 		}
 
 

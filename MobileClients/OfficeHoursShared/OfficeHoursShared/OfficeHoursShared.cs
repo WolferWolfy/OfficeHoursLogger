@@ -15,8 +15,15 @@ namespace OfficeHoursShared
 
 			Auth0User user = pm.RetreiveUserData ();
 
+
 			if (user != null) {
 				MainPage = new NavigationPage (new SummaryPage ());
+
+				var loggedInUser = Auth0Provider.Instance.GetUserData (user.LoginToken);
+
+				if (loggedInUser.LoginToken.access_token != user.LoginToken.access_token) {
+					Console.WriteLine ("user udpated");
+				}
 			}
 			else {
 				// The root page of your application

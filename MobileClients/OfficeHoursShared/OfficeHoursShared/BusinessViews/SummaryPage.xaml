@@ -1,24 +1,79 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="OfficeHoursShared.SummaryPage">
 	<ContentPage.ToolbarItems>
-		<ToolbarItem Text="New" Order="Primary" Clicked="NewEntryScenario"/>
+		<ToolbarItem Text="New" Order="Primary" Clicked="NewEntryScenario" />
 	</ContentPage.ToolbarItems>
 	<ContentPage.Content>
-	  <StackLayout>
-	    <Label>Months Log</Label>
-	    <Label>text</Label>
-	    <Image x:Name="BarChart" HorizontalOptions="Fill" HeightRequest="200"/>
-
-		<ListView x:Name="MonthsListView" 
-			ItemSelected="OnSelection">
-		    <ListView.ItemTemplate>
-		      <DataTemplate>
-		        <TextCell Text="{Binding Month.DateTime, StringFormat='{0:yyyy - MMMM}'}" Detail="{Binding Days.Count, StringFormat='Days logged: {0}'}" />
-		      </DataTemplate>
-		    </ListView.ItemTemplate>
-		  </ListView>
-
-	  </StackLayout>
-
+		<StackLayout>
+			<Label>Months Log</Label>
+			<Label>text</Label>
+			<Image x:Name="BarChart" HorizontalOptions="Fill" HeightRequest="200" />
+			<ListView x:Name="MonthsListView" ItemSelected="OnSelection">
+				<ListView.Header>
+					<!--<StackLayout Orientation="Horizontal" Padding="10, 0, 10, 0">
+						<Label Text="Date" YAlign="Center" BackgroundColor="#1234" />
+						<Label Text="Avg. In" HorizontalOptions="EndAndExpand" FontSize="Medium" YAlign="Center" XAlign="End" BackgroundColor="#2345" />
+						<Label Text="Avg. Out" HorizontalOptions="EndAndExpand" FontSize="Medium" YAlign="Center" BackgroundColor="#3456" />
+					</StackLayout>-->
+					<RelativeLayout HeightRequest="30">
+								<Label Text="Date" 
+									HorizontalTextAlignment="Start"
+									RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=.10,Constant=0}"
+									RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=0.02}" 
+									RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=.38,Constant=0}"
+									/>
+								<Label Text="Avg. In" 
+									HorizontalTextAlignment="Center"
+									RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=.10,Constant=0}" 
+									RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=0.42}" 
+									RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=.27,Constant=0}"/>
+								<Label Text="Avg. Out" 
+									HorizontalTextAlignment="End"
+									RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=.10,Constant=0}"
+									RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=0.71}" 
+									RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=.27,Constant=0}"  />
+							</RelativeLayout>
+				</ListView.Header>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<!--<TextCell Text="{Binding Month.DateTime, StringFormat='{0:yyyy - MMMM}'}" Detail="{Binding Days.Count, StringFormat='Days logged: {0}'}" />-->
+						<ViewCell>
+							<!--<StackLayout Orientation="Horizontal" Padding="10, 5, 10, 5">
+								<Label Text="{Binding Month.DateTime, StringFormat='{0:yyyy - MMMM}'}" YAlign="Center" BackgroundColor="Green"/>
+								<Label Text="{Binding AverageIn, StringFormat='{0}'}" HorizontalOptions="Center" FontSize="Medium" YAlign="Center" XAlign="Center" BackgroundColor="Aqua" />
+								<Label Text="{Binding AverageOut, StringFormat='{0}'}" HorizontalOptions="EndAndExpand" FontSize="Medium" YAlign="Center" BackgroundColor="Yellow"/>
+							</StackLayout>
+							-->
+							<RelativeLayout>
+								<Label Text="{Binding Month.DateTime, StringFormat='{0:yyyy - MMMM}'}" 
+									HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+									RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=.05,Constant=0}" 
+									RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=0.02}" 
+									RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=.38,Constant=0}" 
+									RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=.9,Constant=0}"/>
+								<Label Text="{Binding AverageIn, StringFormat='{0}'}" 
+									HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+									RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=.05,Constant=0}" 
+									RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=0.42}" 
+									RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=.27,Constant=0}" 
+									RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=.9,Constant=0}" />
+								<Label Text="{Binding AverageOut, StringFormat='{0}'}" 
+									HorizontalTextAlignment="End" VerticalTextAlignment="Center"
+									RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=.05,Constant=0}"
+									RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=0.71}" 
+									RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=.27,Constant=0}" 
+									RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=.9,Constant=0}" />
+							</RelativeLayout>
+							<!--
+							<StackLayout Orientation="Horizontal" Padding="10, 0, 10, 0">
+								<Label Text="{Binding AverageOut, StringFormat='{0}'}" YAlign="Center" BackgroundColor="#1234" />
+								<Label Text="{Binding AverageIn, StringFormat='{0}'}" HorizontalOptions="CenterAndExpand" FontSize="Medium" YAlign="Center" XAlign="End" BackgroundColor="#2345" />
+								<Label Text="{Binding AverageOut, StringFormat='{0}'}" HorizontalOptions="EndAndExpand" FontSize="Medium" YAlign="Center" BackgroundColor="#3456" />
+							</StackLayout>-->
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

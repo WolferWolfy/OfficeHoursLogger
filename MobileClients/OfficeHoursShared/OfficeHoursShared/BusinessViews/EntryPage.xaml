@@ -10,7 +10,7 @@
 	 Padding = "10">
 
 	 <StackLayout Orientation="Horizontal">
-	 	<Label HorizontalOptions="Start" Text="Name: " WidthRequest="100" x:Name="NameLabel"/>
+	 	<Label HorizontalOptions="Start" Text="Name: " WidthRequest="100"/>
   		<Entry HorizontalOptions="FillAndExpand" Text="{Binding Name}"/>
 	 </StackLayout>
 

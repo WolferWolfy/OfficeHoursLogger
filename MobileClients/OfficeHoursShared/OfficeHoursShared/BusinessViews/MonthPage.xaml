@@ -1,13 +1,28 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="OfficeHoursShared.MonthPage">
 	<ContentPage.Content>
-		<ListView x:Name="MonthView" 
-			ItemSelected="OnSelection">
-		    <ListView.ItemTemplate>
-		      <DataTemplate>
-		        <TextCell Text="{Binding Day.DateTime, StringFormat='{0:yyyy/MM/dd}'}" Detail="{Binding InOffice, StringFormat='In Office: {0}'}" />
-		      </DataTemplate>
-		    </ListView.ItemTemplate>
-		</ListView>
+		<StackLayout Orientation="Vertical">
+			<StackLayout Spacing="10" Padding="5" WidthRequest="1000" BackgroundColor="#44e6f7ff">
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+					<Label Text="Average in:" WidthRequest="100" HorizontalOptions="Start" />
+					<Label x:Name="AverageInLabel" WidthRequest="80" XAlign="End" />
+				</StackLayout>
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+					<Label Text="Average out:" WidthRequest="100" HorizontalOptions="Start" />
+					<Label x:Name="AverageOutLabel" WidthRequest="80" XAlign="End" />
+				</StackLayout>
+				<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+					<Label Text="Logged days:" WidthRequest="120" HorizontalOptions="Start" />
+					<Label x:Name="LoggedDaysLabel" WidthRequest="60" XAlign="End" />
+				</StackLayout>
+			</StackLayout>
+			<ListView x:Name="MonthView" ItemSelected="OnSelection">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<TextCell Text="{Binding Day.DateTime, StringFormat='{0:yyyy/MM/dd}'}" Detail="{Binding InOffice, StringFormat='In Office: {0}'}" />
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

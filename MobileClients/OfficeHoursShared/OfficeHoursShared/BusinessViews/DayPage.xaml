@@ -1,50 +1,71 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
- xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
- x:Class="OfficeHoursShared.DayPage">
-
-  <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style x:Key="MyLabelStyle" TargetType="Label">
-                <Style.Triggers>
-                    <DataTrigger TargetType="Label" Binding="{Binding Direction}" Value="Entry" >
-                        <Setter Property="TextColor" Value="Teal" />
-                    </DataTrigger>
-                    <DataTrigger TargetType="Label" Binding="{Binding Direction}" Value="Exit" >
-                        <Setter Property="TextColor" Value="Maroon" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-
-            <Style x:Key="MyTextCellStyle" TargetType="TextCell">
-                <Style.Triggers>
-                    <DataTrigger TargetType="Label" Binding="{Binding Path=Direction}" Value="Entry">
-                    	<Setter Property="TextColor" Value="Green"/>
-                	</DataTrigger>
-                </Style.Triggers>
-            </Style>
-
-            <Style x:Key="MyStackLayoutStyle" TargetType="StackLayout">
-                <Style.Triggers>
-                    <DataTrigger TargetType="StackLayout" Binding="{Binding Direction}" Value="Entry" >
-                        <Setter Property="BackgroundColor" Value="#85C4" />
-                    </DataTrigger>
-                    <DataTrigger TargetType="StackLayout" Binding="{Binding Direction}" Value="Exit" >
-                        <Setter Property="BackgroundColor" Value="#8E52" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="OfficeHoursShared.DayPage">
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<Style x:Key="MyLabelStyle" TargetType="Label">
+				<Style.Triggers>
+					<DataTrigger TargetType="Label" Binding="{Binding Direction}" Value="Entry">
+						<Setter Property="TextColor" Value="Teal" />
+					</DataTrigger>
+					<DataTrigger TargetType="Label" Binding="{Binding Direction}" Value="Exit">
+						<Setter Property="TextColor" Value="Maroon" />
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+			<Style x:Key="MyTextCellStyle" TargetType="TextCell">
+				<Style.Triggers>
+					<DataTrigger TargetType="Label" Binding="{Binding Path=Direction}" Value="Entry">
+						<Setter Property="TextColor" Value="Green" />
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+			<Style x:Key="MyStackLayoutStyle" TargetType="StackLayout">
+				<Style.Triggers>
+					<DataTrigger TargetType="StackLayout" Binding="{Binding Direction}" Value="Entry">
+						<Setter Property="BackgroundColor" Value="#85C4" />
+					</DataTrigger>
+					<DataTrigger TargetType="StackLayout" Binding="{Binding Direction}" Value="Exit">
+						<Setter Property="BackgroundColor" Value="#8E52" />
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+		</ResourceDictionary>
+	</ContentPage.Resources>
 	<ContentPage.Content>
-		<ListView x:Name="DayView" 
-			ItemSelected="OnSelection">
-		    <ListView.ItemTemplate>
-		      <DataTemplate>
-
-		      	<!--
+		<StackLayout>
+			<StackLayout Spacing="10" Padding="5" Orientation="Vertical" x:Name="outerStack">
+				<!-- can change orientation to make responsive -->
+					<StackLayout Spacing="5" WidthRequest="1000">
+						<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+							<Label Text="Arrival: " WidthRequest="100" HorizontalOptions="Start" />
+							<Label x:Name="ArrivalLabel" WidthRequest="80" XAlign="End" />
+						</StackLayout>
+						<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+							<Label Text="Departure: " WidthRequest="100" HorizontalOptions="Start" />
+							<Label x:Name="LeaveLabel" WidthRequest="80" XAlign="End" />
+						</StackLayout>
+					</StackLayout>
+					<StackLayout Spacing="5" WidthRequest="1000">
+						<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+							<Label Text="In time:" WidthRequest="100" HorizontalOptions="Start" />
+							<Label x:Name="InOfficeLabel" WidthRequest="80" XAlign="End"/>
+						</StackLayout>
+						<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+							<Label Text="Out time:" WidthRequest="100" HorizontalOptions="Start" />
+							<Label x:Name="OutOfOfficeLabel" WidthRequest="80" XAlign="End" />
+						</StackLayout>
+					</StackLayout>
+			</StackLayout>
+			<ListView x:Name="DayView" ItemSelected="OnSelection">
+				<ListView.Header>
+					<StackLayout Orientation="Horizontal" Padding="10, 0, 10, 0">
+						<Label Text="Name" />
+						<Label Text="Timestamp" HorizontalOptions="EndAndExpand" />
+					</StackLayout>
+				</ListView.Header>
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<!--
 		    	<TextCell Text = "{Binding Name}" Detail="{Binding Time.DateTime}" TextColor ="Blue">
 
 
@@ -65,28 +86,18 @@
          			</TextCell.ContextActions>
       			</TextCell>
       			-->
-
-				<ViewCell>
-				<StackLayout Orientation="Horizontal" Padding="5, 10, 15, 20" 
-					HorizontalOptions="Fill" VerticalOptions="Fill">
-				 	<!--Style="{StaticResource MyStackLayoutStyle}"-->
-
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                <Label Text="{Binding Name}"
-                                	Style="{StaticResource MyLabelStyle}"
-                                	 />
-                                <Label Text="{Binding Time.DateTime, StringFormat='{0:HH:mm:ss}'}"
-                                HorizontalOptions="EndAndExpand"
-                                FontSize="Small"
-                                />
-                            </StackLayout>
-                        </StackLayout>
-
-
-                </ViewCell>
-               
-		      </DataTemplate>
-		    </ListView.ItemTemplate>
-		</ListView>
+						<ViewCell>
+							<StackLayout Orientation="Horizontal" Padding="10, 5, 10, 5" HorizontalOptions="Fill" VerticalOptions="Fill">
+								<!--Style="{StaticResource MyStackLayoutStyle}"-->
+								<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+									<Label Text="{Binding Name}" Style="{StaticResource MyLabelStyle}" FontSize="Medium" YAlign="Center" />
+									<Label Text="{Binding Time.DateTime, StringFormat='{0:HH:mm:ss}'}" HorizontalOptions="EndAndExpand" FontSize="Medium" YAlign="Center" />
+								</StackLayout>
+							</StackLayout>
+						</ViewCell>
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
+		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

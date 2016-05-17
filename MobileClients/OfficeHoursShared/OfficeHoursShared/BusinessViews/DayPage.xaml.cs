@@ -11,10 +11,18 @@ namespace OfficeHoursShared
 		IOfficeHoursRepository OfficeHoursRepository;
 		DayViewModel day;
 
+		double width;
+		double height;
+
 		public DayPage (DayViewModel dayVM)
 		{
+			
 			day = dayVM;
+
+
 			InitializeComponent ();
+
+			outerStack.BindingContext = this;
 
 			Title = dayVM.Day.DateTime.ToString("yyyy/MM/dd");
 		//	DayView.ItemsSource = dayVM.LogEntries ;
@@ -48,6 +56,22 @@ namespace OfficeHoursShared
 
 			day = selectedDay;
 			DayView.ItemsSource = day.LogEntries;
+
+			UpdateSummaryLabels ();
+		}
+			
+		protected override void OnSizeAllocated (double width, double height)
+		{
+			base.OnSizeAllocated (width, height);
+			if (width != this.width || height != this.height) {
+				this.width = width;
+				this.height = height;
+				if (width > height) {
+					outerStack.Orientation = StackOrientation.Horizontal;
+				} else {
+					outerStack.Orientation = StackOrientation.Vertical;
+				}
+			}
 		}
 
 		public void OnMore (object sender, EventArgs e) {
@@ -66,6 +90,13 @@ namespace OfficeHoursShared
 				//DayView.ItemsSource = day.LogEntries;
 				OnAppearing ();
 			}
+		}
+
+		private void UpdateSummaryLabels() {
+			ArrivalLabel.Text = String.Format ("{0:HH:mm:ss}", day.Arrive.DateTime);
+			LeaveLabel.Text = String.Format ("{0:HH:mm:ss}", day.Leave.DateTime);
+			InOfficeLabel.Text = String.Format ("{0}", day.InOffice);
+			OutOfOfficeLabel.Text = String.Format ("{0}", day.OutOfOffice);
 		}
 
 		public void AddNewEntry() {
