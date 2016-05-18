@@ -42,6 +42,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Repository\SampleData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ActionDirectionToColorConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Persistence\PersistenceManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\BarChartWizard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\MonthsToChartModelConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Auth0\" />

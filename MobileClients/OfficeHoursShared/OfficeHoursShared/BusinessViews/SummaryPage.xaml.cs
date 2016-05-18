@@ -14,12 +14,14 @@ namespace OfficeHoursShared
 		IOfficeHoursRepository OfficeHoursRepository;
 		OfficeUserViewModel OfficeUserVM;
 
+		double width;
+		double height;
+
 		public SummaryPage ()
 		{
 			InitializeComponent ();
 
 			Title = "Summary";
-			BarChart.Source = PlatformImageResource ("temp_bar_chart.png");
 
 			// if moved to OfficeHoursShared.iOS/Resources:
 			// BarChart.Source = ImageSource.FromFile("temp_bar_chart.png");
@@ -41,13 +43,64 @@ namespace OfficeHoursShared
 			}
 		}
 
+		void BarCharting ()
+		{
+			ChartModel cm1 = new ChartModel () {
+				InTime = new TimeSpan (7, 50, 0),
+				OutTime = new TimeSpan (0, 30, 0),
+				Date = new DateTime (2016, 01, 01)
+			};
+			ChartModel cm2 = new ChartModel () {
+				InTime = new TimeSpan (7, 25, 0),
+				OutTime = new TimeSpan (0, 35, 0),
+				Date = new DateTime (2016, 02, 07)
+			};
+			var months = OfficeUserVM.Months;
+			if (months == null) {
+				return;
+			}
+
+			List<ChartModel> cms = months.ConvertToChartModel<MonthViewModel> ();
+			var mocks = new List<ChartModel> () {
+				cm1,
+				cm2,
+				cm2,
+				cm1,
+				cm2,
+				cm1,
+				cm2,
+				cm1,
+				cm1
+			};
+			cms.AddRange (mocks);
+			barChart.Children.Clear ();
+			BarChartWizard.Magic (barChart, cms);
+		}
+
 		protected override void OnAppearing ()
 		{
 			OfficeUserVM.Months = OfficeHoursRepository.FindAllMonth ();
 
 			MonthsListView.ItemsSource = OfficeUserVM.Months;
+
+			BarCharting ();
+
+
+
+
+
 		}
 
+		protected override void OnSizeAllocated (double width, double height)
+		{
+			base.OnSizeAllocated (width, height);
+			if (width != this.width || height != this.height) {
+				this.width = width;
+				this.height = height;
+
+				BarCharting ();
+			}
+		}
 		void OnSelection (object sender, SelectedItemChangedEventArgs e)
 		{
 			if (e.SelectedItem == null) {

@@ -5,9 +5,8 @@
 	</ContentPage.ToolbarItems>
 	<ContentPage.Content>
 		<StackLayout>
-			<Label>Months Log</Label>
-			<Label>text</Label>
-			<Image x:Name="BarChart" HorizontalOptions="Fill" HeightRequest="200" />
+			
+			<RelativeLayout x:Name ="barChart" WidthRequest="100" HeightRequest="100" BackgroundColor="#468B"/>
 			<ListView x:Name="MonthsListView" ItemSelected="OnSelection">
 				<ListView.Header>
 					<!--<StackLayout Orientation="Horizontal" Padding="10, 0, 10, 0">
