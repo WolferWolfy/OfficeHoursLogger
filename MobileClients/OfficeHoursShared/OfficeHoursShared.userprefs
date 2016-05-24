@@ -1,34 +1,15 @@
-﻿<Properties StartupItem="iOS/OfficeHoursShared.iOS.csproj" RefactoringSettings.EnableRefactorings="True">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone6.9.3" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="OfficeHoursShared/BusinessViews/SummaryPage.xaml">
+﻿<Properties StartupItem="Droid/OfficeHoursShared.Droid.csproj" RefactoringSettings.EnableRefactorings="True">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="Android.Nexus5KitKat" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="OfficeHoursShared/BusinessViews/DayPage.xaml">
     <Files>
-      <File FileName="OfficeHoursShared/BusinessViews/SummaryPage.xaml" Line="29" Column="1" />
+      <File FileName="OfficeHoursShared/BusinessViews/DayPage.xaml" Line="90" Column="6" />
+      <File FileName="OfficeHoursShared/BusinessViews/DayPage.xaml.cs" Line="82" Column="29" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="OfficeHoursShared" expanded="True">
-            <Node name="OfficeHoursShared" expanded="True">
-              <Node name="BusinessClasses" expanded="True">
-                <Node name="ViewModels" expanded="True" />
-              </Node>
-              <Node name="BusinessViews" expanded="True">
-                <Node name="SummaryPage.xaml" expanded="True" selected="True" />
-              </Node>
-            </Node>
-            <Node name="OfficeHoursShared.iOS" expanded="True" />
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/Marton_Imre_Farkas/OfficeHoursLogger/MobileClients/OfficeHoursShared/OfficeHoursShared/Auth0/Auth0Provider.cs" line="102" column="1" />
-      <Breakpoint file="/Users/Marton_Imre_Farkas/OfficeHoursLogger/MobileClients/OfficeHoursShared/OfficeHoursShared/BusinessViews/EntryPage.xaml.cs" line="118" column="1" />
-      <Breakpoint file="/Users/Marton_Imre_Farkas/OfficeHoursLogger/MobileClients/OfficeHoursShared/OfficeHoursShared/Repository/MockRepository.cs" line="81" column="1" />
       <Breakpoint file="/Users/Marton_Imre_Farkas/OfficeHoursLogger/MobileClients/OfficeHoursShared/OfficeHoursShared/OfficeHoursShared.cs" line="25" column="1" />
-      <Breakpoint file="/Users/Marton_Imre_Farkas/OfficeHoursLogger/MobileClients/OfficeHoursShared/OfficeHoursShared/Persistence/PersistenceManager.cs" line="14" column="1" />
       <Breakpoint file="/Users/Marton_Imre_Farkas/OfficeHoursLogger/MobileClients/OfficeHoursShared/OfficeHoursShared/BusinessViews/DayPage.xaml.cs" line="12" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

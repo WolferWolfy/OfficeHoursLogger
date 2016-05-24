@@ -35,26 +35,26 @@
 		<StackLayout>
 			<StackLayout Spacing="10" Padding="5" Orientation="Vertical" x:Name="outerStack">
 				<!-- can change orientation to make responsive -->
-					<StackLayout Spacing="5" WidthRequest="1000">
-						<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-							<Label Text="Arrival: " WidthRequest="100" HorizontalOptions="Start" />
-							<Label x:Name="ArrivalLabel" WidthRequest="80" XAlign="End" />
-						</StackLayout>
-						<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-							<Label Text="Departure: " WidthRequest="100" HorizontalOptions="Start" />
-							<Label x:Name="LeaveLabel" WidthRequest="80" XAlign="End" />
-						</StackLayout>
+				<StackLayout Spacing="5" WidthRequest="1000">
+					<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+						<Label Text="Arrival: " WidthRequest="100" HorizontalOptions="Start" />
+						<Label x:Name="ArrivalLabel" WidthRequest="80" XAlign="End" />
 					</StackLayout>
-					<StackLayout Spacing="5" WidthRequest="1000">
-						<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-							<Label Text="In time:" WidthRequest="100" HorizontalOptions="Start" />
-							<Label x:Name="InOfficeLabel" WidthRequest="80" XAlign="End"/>
-						</StackLayout>
-						<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-							<Label Text="Out time:" WidthRequest="100" HorizontalOptions="Start" />
-							<Label x:Name="OutOfOfficeLabel" WidthRequest="80" XAlign="End" />
-						</StackLayout>
+					<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+						<Label Text="Departure: " WidthRequest="100" HorizontalOptions="Start" />
+						<Label x:Name="LeaveLabel" WidthRequest="80" XAlign="End" />
 					</StackLayout>
+				</StackLayout>
+				<StackLayout Spacing="5" WidthRequest="1000">
+					<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+						<Label Text="In time:" WidthRequest="100" HorizontalOptions="Start" />
+						<Label x:Name="InOfficeLabel" WidthRequest="80" XAlign="End" />
+					</StackLayout>
+					<StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+						<Label Text="Out time:" WidthRequest="100" HorizontalOptions="Start" />
+						<Label x:Name="OutOfOfficeLabel" WidthRequest="80" XAlign="End" />
+					</StackLayout>
+				</StackLayout>
 			</StackLayout>
 			<ListView x:Name="DayView" ItemSelected="OnSelection">
 				<ListView.Header>
@@ -94,6 +94,10 @@
 									<Label Text="{Binding Time.DateTime, StringFormat='{0:HH:mm:ss}'}" HorizontalOptions="EndAndExpand" FontSize="Medium" YAlign="Center" />
 								</StackLayout>
 							</StackLayout>
+							<ViewCell.ContextActions>
+								<MenuItem Clicked="OnMore" CommandParameter="{Binding .}" Text="More" />
+								<MenuItem Clicked="OnDelete" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+							</ViewCell.ContextActions>
 						</ViewCell>
 					</DataTemplate>
 				</ListView.ItemTemplate>
