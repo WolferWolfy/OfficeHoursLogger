@@ -125,15 +125,7 @@ class MockDataProvider {
                     monthsDict[currentMonthInt] =  newMD
                     
                 }
-              /*  if var aMonthDict = monthsDict[currentYearMonth] {
-                    aMonthDict.append(entry)
-                    
-                }
-                else {
-                    var entries = [LogEntry]()
-                    entries.append(entry)
-                    monthsDict[currentYearMonth] = entries
-                }*/
+
                 yearMonthDictionary[currentYearInt] = monthsDict
             }
         }
@@ -141,9 +133,6 @@ class MockDataProvider {
         var months = [Month]()
         
         yearMonthDictionary.values.forEach { (monthsDict :[Int : [Int:Day]]) in
-            // foreach every year
-            
- 
 
             monthsDict.values.forEach({ (dayDict) in
                 let aMonth = Month()
@@ -151,15 +140,14 @@ class MockDataProvider {
                     aMonth.days.append(day)
 
                 })
+                
+                aMonth.days.sortInPlace({$0.date!.compare($1.date!) == NSComparisonResult.OrderedAscending })
+                
                 months.append(aMonth)
-        })
-            
-
-
-            
+            })
         }
         
-        return months
+        return months.sort({ $0.date!.compare($1.date!) == NSComparisonResult.OrderedAscending })
     }
     
     private func dayToAdd(dayNumber: Int, daysDict: [Int:Day]) -> Day {
@@ -173,22 +161,5 @@ class MockDataProvider {
             return newDay
         }
     }
-    /*
-    func addToMonthDict(entry : LogEntry, monthsDict: [Int: [LogEntry]]) -> Void {
-        let calendar = NSCalendar.init(calendarIdentifier: NSCalendarIdentifierGregorian)
-     
-        let currentYearMonth = (calendar?.component(NSCalendarUnit.Month, fromDate: entry.dateTime))!
-        
-        if var aMonthDict = monthsDict[currentYearMonth] {
-            aMonthDict.append(entry)
-            
-        }
-        else {
-            var entries = [LogEntry]()
-            entries.append(entry)
-            monthsDict[currentYearMonth] = entries
-        }
- 
-    }
- */
+
 }
