@@ -13,6 +13,8 @@ class DayViewController: BaseViewController, UITableViewDelegate, UITableViewDat
     var day: Day?
     
     var selectedEntry: LogEntry?
+        
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,11 +22,13 @@ class DayViewController: BaseViewController, UITableViewDelegate, UITableViewDat
         // Do any additional setup after loading the view.
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
+    override func viewWillAppear(animated: Bool) {
+        if let searchDate = day?.date {
+            day = repository.findDay(searchDate)
+            self.tableView.reloadData()
+        }
     }
-    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return day?.logEntries.count ?? 0
@@ -76,7 +80,23 @@ class DayViewController: BaseViewController, UITableViewDelegate, UITableViewDat
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if let dest = segue.destinationViewController as? LogEntryViewController {
+            
+            if (segue.identifier == "entryDetails") {
+                dest.isNewScenario = false
+
+            }
+            else if (segue.identifier == "newEntry") {
+                
+                if let date = day?.logEntries.last?.dateTime
+                {
+                    // TODO: construct dateTime as day date, but current / what time?
+                    selectedEntry = LogEntry(id: 0, name: "", direction: EntryDirection.Entry, dateTime: date)
+                }
+            }
+            
             dest.entry = selectedEntry
+            
+            selectedEntry = nil
         }
     }
     

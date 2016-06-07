@@ -57,6 +57,33 @@ class MockRepository: OfficeHoursRepositoryProtocol{
         MockDataProvider.sharedInstance.userEntries =
             MockDataProvider.sharedInstance.userEntries.filter({ $0.id != id })
     }
-
+    
+    func findDay(date: NSDate) -> Day {
+        
+        let searhedDateComp = date.dateComponent()
+        
+        if let months = findAllMonth() {
+            
+            let searchedMonth = months.filter({ (m) -> Bool in
+                let dateComp = m.days.first?.date?.dateComponent()
+                return (searhedDateComp.year == dateComp?.year && searhedDateComp.month == dateComp?.month)
+            }).first
+            
+            if let sm = searchedMonth {
+                let days = sm.days.filter({ (d) -> Bool in
+                        let dateComp = d.date?.dateComponent()
+                        return (searhedDateComp.day == dateComp?.day)
+                })
+                
+                if let day = days.first {
+                    return day
+                }
+            }
+            
+            
+        }
+        return Day(entries: [LogEntry]())
+    }
+    
     
 }

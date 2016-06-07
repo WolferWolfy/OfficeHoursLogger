@@ -10,6 +10,7 @@ import UIKit
 
 class MonthViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var tableView: UITableView!
     var month: Month?
 
     var selectedDay: Day?
@@ -25,7 +26,12 @@ class MonthViewController: BaseViewController, UITableViewDelegate, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
 
+        tableView.reloadData()
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return month?.days.count ?? 0
     }

@@ -20,4 +20,6 @@ protocol OfficeHoursRepositoryProtocol {
     
     func deleteEntryById(id: Int) -> Void
     
+    func findDay(date: NSDate) -> Day
+    
 }

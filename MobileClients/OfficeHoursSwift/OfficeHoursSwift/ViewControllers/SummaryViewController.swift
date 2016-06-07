@@ -10,6 +10,7 @@ import UIKit
 
 class SummaryViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var tableView: UITableView!
     
     var months: [Month]?
     
@@ -30,6 +31,7 @@ class SummaryViewController: BaseViewController, UITableViewDelegate, UITableVie
         super.viewWillAppear(animated)
         
         months = repository.findAllMonth()
+        tableView.reloadData()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

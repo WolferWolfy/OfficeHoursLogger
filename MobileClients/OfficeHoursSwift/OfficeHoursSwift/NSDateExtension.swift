@@ -45,8 +45,6 @@ extension NSDate
         
         let formatter = NSDateFormatter()
         formatter.dateFormat = "HH:mm:ss"
-        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         
         let formattedString = formatter.stringFromDate(self)
         
@@ -57,8 +55,6 @@ extension NSDate
 
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         
         let formattedString = formatter.stringFromDate(self)
         
@@ -69,8 +65,6 @@ extension NSDate
         
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM"
-        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         
         let formattedString = formatter.stringFromDate(self)
         
@@ -81,11 +75,23 @@ extension NSDate
         
         let formatter = NSDateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        formatter.timeZone = NSTimeZone(forSecondsFromGMT: 0)
-        formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
         
         let formattedString = formatter.stringFromDate(self)
         
         return formattedString
     }
+    
+    func dateComponent()-> NSDateComponents {
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([.Year, .Month, .Day], fromDate: self)
+        return components
+    }
+    
+    func timeComponent()-> NSDateComponents {
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([.Hour, .Minute, .Second], fromDate: self)
+        return components
+    }
+    
+    
 }
