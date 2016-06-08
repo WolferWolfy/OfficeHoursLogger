@@ -49,7 +49,8 @@ class Month {
         days.forEach { (day) in
             fullIn.addTimeSpan(day.inTime)
         }
-        return TimeSpan( fullIn.totalSeconds /= days.count);
+        let ts = TimeSpan(seconds: fullIn.totalSeconds / days.count)
+        return ts
     }
 
     private func calculateAverageOut() -> TimeSpan
@@ -59,7 +60,7 @@ class Month {
         days.forEach { (day) in
             fullOut.addTimeSpan(day.outTime)
         }
-        return TimeSpan( fullOut.totalSeconds /= days.count);
+        return TimeSpan(seconds: fullOut.totalSeconds / days.count);
     }
 
 }

@@ -16,6 +16,12 @@ class DayViewController: BaseViewController, UITableViewDelegate, UITableViewDat
         
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var topStackLayout: UIStackView!
+    @IBOutlet weak var arrivalLabel: UILabel!
+    @IBOutlet weak var departureLabel: UILabel!
+    @IBOutlet weak var inTimeLabel: UILabel!
+    @IBOutlet weak var outTimeLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,7 +33,20 @@ class DayViewController: BaseViewController, UITableViewDelegate, UITableViewDat
         if let searchDate = day?.date {
             day = repository.findDay(searchDate)
             self.tableView.reloadData()
+            updateLabels()
         }
+    }
+    
+    
+    func updateLabels() {
+        guard let theDay = day else {
+            return
+        }
+        
+        arrivalLabel.text = theDay.arrival?.toTimeString()
+        departureLabel.text = theDay.departure?.toTimeString()
+        inTimeLabel.text = theDay.inTime.toString()
+        outTimeLabel.text = theDay.outTime.toString()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -97,6 +116,16 @@ class DayViewController: BaseViewController, UITableViewDelegate, UITableViewDat
             dest.entry = selectedEntry
             
             selectedEntry = nil
+        }
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        if UIDevice.currentDevice().orientation.isLandscape.boolValue {
+            print("Landscape")
+            topStackLayout.axis = UILayoutConstraintAxis.Horizontal
+        } else {
+            topStackLayout.axis = UILayoutConstraintAxis.Vertical
+            print("Portrait")
         }
     }
     

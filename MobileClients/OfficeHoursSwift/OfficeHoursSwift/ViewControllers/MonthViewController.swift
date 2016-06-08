@@ -11,6 +11,14 @@ import UIKit
 class MonthViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var averageInLabel: UILabel!
+    
+    @IBOutlet weak var averageOutLabel: UILabel!
+    
+    @IBOutlet weak var loggedDaysLabel: UILabel!
+    
+    
     var month: Month?
 
     var selectedDay: Day?
@@ -29,7 +37,20 @@ class MonthViewController: BaseViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
+        updateLabels()
         tableView.reloadData()
+    }
+    
+    
+    func updateLabels() {
+        
+        guard let theMonth = month else {
+            return
+        }
+        
+        averageInLabel.text = theMonth.averageIn.toString()
+        averageOutLabel.text = theMonth.outTime.toString()
+        loggedDaysLabel.text = "\(theMonth.days.count)"
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,7 +72,7 @@ class MonthViewController: BaseViewController, UITableViewDelegate, UITableViewD
 
         cell!.textLabel!.text = day.arrival?.toDateString()
     
-        cell!.detailTextLabel!.text = "In Office: \(day.inTime.hour):\(day.inTime.minute):\(day.inTime.second)"
+        cell!.detailTextLabel!.text = "In Office: \(day.inTime.toString())"
         
         return cell!
     }

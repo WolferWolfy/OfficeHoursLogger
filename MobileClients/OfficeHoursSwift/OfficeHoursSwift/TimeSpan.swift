@@ -44,6 +44,11 @@ struct TimeSpan {
         self.totalSeconds = Int(timeInterval)
     }
     
+    init(seconds: Int) {
+        
+        self.totalSeconds = seconds
+    }
+    
     mutating func addTimeInterval(interval: NSTimeInterval) {
         //interval in seconds
         totalSeconds += Int(interval)
@@ -60,5 +65,10 @@ struct TimeSpan {
     
     mutating func subtractTimeSpan(timeSpan: TimeSpan) {
         totalSeconds -= timeSpan.totalSeconds;
+    }
+    
+    
+    func toString() -> String {
+        return String(format: "%02d:%02d:%02d", self.hour, self.minute, self.second)
     }
 }
