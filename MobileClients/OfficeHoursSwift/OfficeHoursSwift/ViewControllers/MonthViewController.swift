@@ -36,7 +36,16 @@ class MonthViewController: BaseViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
+        
+        if (month?.date) != nil {
+            month = repository.findAllMonth()?.filter({ (m) -> Bool in
+                m.date == month?.date
+            }).first
+            
+            self.tableView.reloadData()
+            updateLabels()
+        }
+        
         updateLabels()
         tableView.reloadData()
     }

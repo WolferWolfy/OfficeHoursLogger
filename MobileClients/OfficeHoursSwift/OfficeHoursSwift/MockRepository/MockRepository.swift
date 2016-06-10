@@ -76,6 +76,9 @@ class MockRepository: OfficeHoursRepositoryProtocol{
                 })
                 
                 if let day = days.first {
+                    day.logEntries.sortInPlace({ (entry1, entry2) -> Bool in
+                        entry1.dateTime.compare(entry2.dateTime) == NSComparisonResult.OrderedAscending
+                    })
                     return day
                 }
             }

@@ -53,7 +53,7 @@ class SummaryViewController: BaseViewController, UITableViewDelegate, UITableVie
             //cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: reuseIdentifier)
             cell = MonthCell()
         }
-        cell!.textLabel!.text = months![indexPath.row].date?.toYearMonthString()
+        cell!.textLabel!.text = months![indexPath.row].date?.toYearMonthLetterString()
         
         
         return cell!

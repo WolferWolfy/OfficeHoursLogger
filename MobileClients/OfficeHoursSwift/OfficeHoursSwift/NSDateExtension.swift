@@ -71,6 +71,16 @@ extension NSDate
         return formattedString
     }
     
+    func toYearMonthLetterString() -> String {
+        
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "MMM, yyyy"
+        
+        let formattedString = formatter.stringFromDate(self)
+        
+        return formattedString
+    }
+    
     func toDateString() -> String {
         
         let formatter = NSDateFormatter()
